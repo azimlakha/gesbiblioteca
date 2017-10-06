@@ -15,6 +15,14 @@ class CreateCopiesTable extends Migration
     {
         Schema::create('copies', function (Blueprint $table) {
             $table->increments('id');
+            $table->tinyInteger('conservation');
+
+            $table->integer('location_id')->unsigned();
+            $table->foreign('location_id')->references('id')->on('locations');
+
+            $table->integer('book_id')->unsigned();
+            $table->foreign('book_id')->references('id')->on('books');
+
             $table->timestamps();
         });
     }
