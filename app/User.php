@@ -15,8 +15,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'surname', 'email', 'phone', 'password', 'profile_id'
+        'name', 'surname', 'email', 'phone', 'password', 'profile_id', 'created_at', 'updated_at'
     ];
+
+    public function profile(){
+
+        return $this->belongsTo('App\Profile');
+    }
 
     /**
      * The attributes that should be hidden for arrays.

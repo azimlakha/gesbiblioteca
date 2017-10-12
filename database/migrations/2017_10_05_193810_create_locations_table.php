@@ -18,6 +18,7 @@ class CreateLocationsTable extends Migration
             $table->string('section');
             $table->string('bookcase');
             $table->string('shelf');
+            $table->unique(['section', 'bookcase', 'shelf']);
             $table->timestamps();
         });
     }

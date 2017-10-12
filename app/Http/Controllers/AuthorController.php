@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Author;
 
 class AuthorController extends Controller
 {
@@ -14,7 +17,9 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+       $authors = Author::all();
+
+       return view('author.index', compact('authors'));
     }
     /**
      * Show the form for creating a new resource.
@@ -23,8 +28,9 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        //
+           return view('author.register');
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -33,7 +39,23 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255|unique:authors',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('author/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $subscribe        = new Author;
+        $subscribe->name = $request->name;
+        $subscribe->save();
+
+         //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
+         
+         return redirect()->route('author')->with('message','Autor adicionado com sucesso!');
     }
     /**
      * Display the specified resource.

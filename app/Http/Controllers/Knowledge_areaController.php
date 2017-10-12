@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\knowledge_area;
 
 class Knowledge_areaController extends Controller
 {
-  /**
+   /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+       $knowledge_areas = Knowledge_area::all();
+
+       return view('knowledge_area.index', compact('knowledge_areas'));
     }
     /**
      * Show the form for creating a new resource.
@@ -22,8 +28,9 @@ class Knowledge_areaController extends Controller
      */
     public function create()
     {
-        //
+           return view('knowledge_area.register');
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -32,7 +39,23 @@ class Knowledge_areaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255|unique:knowledge_areas',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('knowledge_area/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $subscribe        = new knowledge_area;
+        $subscribe->name = $request->name;
+        $subscribe->save();
+
+         //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
+         
+         return redirect()->route('knowledge_area')->with('message','Disciplina adicionada com sucesso!');
     }
     /**
      * Display the specified resource.
