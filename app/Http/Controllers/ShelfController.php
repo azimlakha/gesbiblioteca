@@ -6,13 +6,9 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-use App\Book;
-use App\Publisher;
-use App\Subject;
-use App\Knowledge_area;
-use App\Author;
+use App\Shelf;
 
-class BookController extends Controller
+class ShelfController extends Controller
 {
    /**
      * Display a listing of the resource.
@@ -21,9 +17,9 @@ class BookController extends Controller
      */
     public function index()
     {
-       $books = Book::all();
+       $shelfs = Shelf::all();
 
-       return view('book.index', compact('books'));
+       return view('shelf.index', compact('shelfs'));
     }
     /**
      * Show the form for creating a new resource.
@@ -32,11 +28,7 @@ class BookController extends Controller
      */
     public function create()
     {
-           $publishers = Publisher::all();
-           $subjects = Subject::all();
-           $knowledge_areas = Knowledge_area::all();
-           $authors = Author::all();
-           return view('book.register', compact('publishers', 'subjects', 'knowledge_areas', 'authors'));
+           return view('shelf.register');
     }
 
     /**
@@ -47,36 +39,24 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-       /** $validator = Validator::make($request->all(), [
-            'title' => 'required|string|255',
-            'edition' => 'required|string|255',
-            'ISBN' => 'required|integer|unique:books',
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255|unique:shelves',
         ]);
 
         if ($validator->fails()) {
-            return redirect('book/create')
+            return redirect('shelf/create')
                         ->withErrors($validator)
                         ->withInput();
         }
-*/
-        $subscribe        = new Book;
-        $subscribe->title = $request->title;
-        $subscribe->edition = $request->edition;
-        $subscribe->ISBN = $request->ISBN;
-        $subscribe->publisher_id = $request->publisher_id;
-        $subscribe->subject_id = $request->subject_id;
-        $subscribe->knowledge_area_id = $request->knowledge_area_id;
-        $subscribe->knowledge_area_id = $request->knowledge_area_id;
+
+        $subscribe        = new Shelf;
+        $subscribe->name = $request->name;
+        $subscribe->description = $request->description;
         $subscribe->save();
-
-        $book_id = $subscribe->id;
-
-        $book = Book::find($book_id);
-        $book->authors()->attach($request->author);
 
          //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
          
-         return redirect()->route('book')->with('message','Livro adicionado com sucesso!');
+         return redirect()->route('shelf')->with('message','Prateleira adicionada com sucesso!');
     }
     /**
      * Display the specified resource.

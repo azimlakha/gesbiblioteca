@@ -6,7 +6,10 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-use App\location;
+use App\Location;
+use App\Section;
+use App\Bookcase;
+use App\Shelf;
 
 class LocationController extends Controller
 {
@@ -28,7 +31,10 @@ class LocationController extends Controller
      */
     public function create()
     {
-           return view('location.register');
+           $sections = Section::all();
+           $bookcases = Bookcase::all();
+           $shelfs = Shelf::all();
+           return view('location.register', compact('sections', 'bookcases', 'shelfs'));
     }
 
     /**
@@ -40,9 +46,9 @@ class LocationController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'section' => 'required|string|max:255|unique:locations',
-            'bookcase' => 'required|string|max:255|unique:locations',
-            'shelf' => 'required|string|max:255|unique:locations',
+            'section_id' => 'required|unique_with:locations, bookcase_id, shelf_id',
+            'bookcase_id' => 'required',
+            'shelf_id' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -52,9 +58,9 @@ class LocationController extends Controller
         }
 
         $subscribe        = new location;
-        $subscribe->section = $request->section;
-        $subscribe->bookcase = $request->bookcase;
-        $subscribe->shelf = $request->shelf;
+        $subscribe->section_id = $request->section_id;
+        $subscribe->bookcase_id = $request->bookcase_id;
+        $subscribe->shelf_id = $request->shelf_id;
         $subscribe->save();
 
          //return Redirect::to('/user')->with('message','User adicionado com sucesso!');

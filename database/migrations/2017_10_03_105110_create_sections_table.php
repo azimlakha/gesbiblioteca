@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLocationsTable extends Migration
+class CreateSectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('locations', function (Blueprint $table) {
+        Schema::create('sections', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('section');
-            $table->string('bookcase');
-            $table->string('shelf');
-            $table->unique(['section', 'bookcase', 'shelf']);
+            $table->string('name')->unique();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateLocationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('sections');
     }
 }

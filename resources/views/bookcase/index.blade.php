@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content') 
+@bookcase('content') 
 <div class="container">
     <div class="row col-md-6 col-md-offset-2 custyle">
 
@@ -10,21 +10,19 @@
 
     <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
     <thead>
-    <a href="location/create" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar nova Localização</a>
+    <a href="bookcase/create" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar nova Estante</a>
         <tr>
             <th>ID</th>
-            <th>Secção</th>
-            <th>Estante</th>
-            <th>Prateleira</th>
+            <th>Nome</th>
+            <th>Descrição</th>
             <th class="text-center">Acção</th>
         </tr>
     </thead>
-            @foreach($locations as $location)
+            @foreach($bookcases as $bookcase)
            <tr>
-               <td>{{$location->id}}</td>
-               <td>{{$location->section->name}}</td>
-               <td>{{$location->bookcase->name}}</td>
-               <td>{{$location->shelf->name}}</td>
+               <td>{{$bookcase->id}}</td>
+               <td>{{$bookcase->name}}</td>
+               <td>{{$bookcase->description}}</td>
                <td class="text-center">
 
 
@@ -35,4 +33,4 @@
     </div>
 </div>
 
-@endsection
+@endbookcase

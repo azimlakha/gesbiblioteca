@@ -10,21 +10,31 @@
 
     <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
     <thead>
-    <a href="location/create" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar nova Localização</a>
+    <a href="book/create" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar novo Livro</a>
         <tr>
             <th>ID</th>
-            <th>Secção</th>
-            <th>Estante</th>
-            <th>Prateleira</th>
+            <th>ISBN</th>
+            <th>Título</th>
+            <th>Editora</th>
+            <th>Edição</th>
+            <th>Área de Conhecimento</th>
+            <th>Disciplina</th>
+            <th>Autor(es)</th>
             <th class="text-center">Acção</th>
         </tr>
     </thead>
-            @foreach($locations as $location)
+            @foreach($books as $book)
            <tr>
-               <td>{{$location->id}}</td>
-               <td>{{$location->section->name}}</td>
-               <td>{{$location->bookcase->name}}</td>
-               <td>{{$location->shelf->name}}</td>
+               <td>{{$book->id}}</td>
+               <td>{{$book->ISBN}}</td>
+               <td>{{$book->title}}</td>
+               <td>{{$book->publisher->name}}</td>
+               <td>{{$book->edition}}</td>
+               <td>{{$book->knowledge_area->name}}</td>
+               <td>{{$book->subject->name}}</td>
+               
+               <td>@foreach($book->authors as $author)<p>{{$author->name}}</p>@endforeach</td>
+               
                <td class="text-center">
 
 

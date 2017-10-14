@@ -10,21 +10,19 @@
 
     <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
     <thead>
-    <a href="location/create" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar nova Localização</a>
+    <a href="section/create" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar nova Secção</a>
         <tr>
             <th>ID</th>
-            <th>Secção</th>
-            <th>Estante</th>
-            <th>Prateleira</th>
+            <th>Nome</th>
+            <th>Descrição</th>
             <th class="text-center">Acção</th>
         </tr>
     </thead>
-            @foreach($locations as $location)
+            @foreach($sections as $section)
            <tr>
-               <td>{{$location->id}}</td>
-               <td>{{$location->section->name}}</td>
-               <td>{{$location->bookcase->name}}</td>
-               <td>{{$location->shelf->name}}</td>
+               <td>{{$section->id}}</td>
+               <td>{{$section->name}}</td>
+               <td>{{$section->description}}</td>
                <td class="text-center">
 
 

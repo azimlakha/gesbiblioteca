@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Author extends Model
+class Bookcase extends Model
 {
     protected $fillable = [
         'name', 'created_at', 'updated_at'
     ];
 
-    public function books(){
-    	return $this->belongsToMany('App\Book', 'book_has_authors');
+    public function locations(){
+    	return $this->hasMany('App\Location');
     }
 }

@@ -24,6 +24,39 @@ Route::get('signup', 'UserController@signup')->name('signup');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::group(['prefix'=>'section'], function()
+	{
+		Route::get('', ['uses'=>'SectionController@index'])->name('section');
+		Route::get('create', ['uses'=>'SectionController@create']);
+		Route::post('store', ['uses'=>'SectionController@store'])->name('section/store');
+		Route::get('{id}/show', ['uses'=>'SectionController@show']);
+		Route::get('{id}/edit', ['uses'=>'SectionController@edit']);
+		Route::put('{id}/update', ['uses'=>'SectionController@update']);
+		Route::delete('{id}/destroy', ['uses'=>'SectionController@destroy']);
+	});
+
+Route::group(['prefix'=>'bookcase'], function()
+	{
+		Route::get('', ['uses'=>'BookcaseController@index'])->name('bookcase');
+		Route::get('create', ['uses'=>'BookcaseController@create']);
+		Route::post('store', ['uses'=>'BookcaseController@store'])->name('bookcase/store');
+		Route::get('{id}/show', ['uses'=>'BookcaseController@show']);
+		Route::get('{id}/edit', ['uses'=>'BookcaseController@edit']);
+		Route::put('{id}/update', ['uses'=>'BookcaseController@update']);
+		Route::delete('{id}/destroy', ['uses'=>'BookcaseController@destroy']);
+	});
+
+Route::group(['prefix'=>'shelf'], function()
+	{
+		Route::get('', ['uses'=>'ShelfController@index'])->name('shelf');
+		Route::get('create', ['uses'=>'ShelfController@create']);
+		Route::post('store', ['uses'=>'ShelfController@store'])->name('shelf/store');
+		Route::get('{id}/show', ['uses'=>'ShelfController@show']);
+		Route::get('{id}/edit', ['uses'=>'ShelfController@edit']);
+		Route::put('{id}/update', ['uses'=>'ShelfController@update']);
+		Route::delete('{id}/destroy', ['uses'=>'ShelfController@destroy']);
+	});
+
 Route::group(['prefix'=>'author'], function()
 	{
 		Route::get('', ['uses'=>'AuthorController@index'])->name('author');
@@ -37,9 +70,9 @@ Route::group(['prefix'=>'author'], function()
 
 Route::group(['prefix'=>'book'], function()
 	{
-		Route::get('', ['uses'=>'BookController@index']);
+		Route::get('', ['uses'=>'BookController@index'])->name('book');
 		Route::get('create', ['uses'=>'BookController@create']);
-		Route::post('store', ['uses'=>'BookController@store']);
+		Route::post('store', ['uses'=>'BookController@store'])->name('book/store');
 		Route::get('{id}/show', ['uses'=>'BookController@show']);
 		Route::get('{id}/edit', ['uses'=>'BookController@edit']);
 		Route::put('{id}/update', ['uses'=>'BookController@update']);
@@ -60,9 +93,9 @@ Route::group(['prefix'=>'location'], function()
 
 Route::group(['prefix'=>'copy'], function()
 	{
-		Route::get('', ['uses'=>'CopyController@index']);
+		Route::get('', ['uses'=>'CopyController@index'])->name('copy');
 		Route::get('create', ['uses'=>'CopyController@create']);
-		Route::post('store', ['uses'=>'CopyController@store']);
+		Route::post('store', ['uses'=>'CopyController@store'])->name('copy/store');
 		Route::get('{id}/show', ['uses'=>'CopyController@show']);
 		Route::get('{id}/edit', ['uses'=>'CopyController@edit']);
 		Route::put('{id}/update', ['uses'=>'CopyController@update']);

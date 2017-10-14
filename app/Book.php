@@ -8,7 +8,7 @@ class Book extends Model
 {
     //
     protected $fillable = [
-        'title', 'edition', 'ISBN', 'publisher_id', 'subject_id', 'knowledge_area_id'
+        'title', 'edition', 'ISBN', 'publisher_id', 'subject_id', 'knowledge_area_id', 'created_at', 'updated_at'
     ];
 
     public function publisher(){
@@ -23,10 +23,11 @@ class Book extends Model
     	return $this->belongsTo('App\Subject'); // link between subject and book
     }
     
-    public function author(){
-        return $this->belongsTo('App\Author'); // link between author and book
+    public function authors(){
+        return $this->belongsToMany('App\Author', 'book_has_authors'); // link between author and book
     }
 
      public function copies(){
     	return $this->hasMany('App\Copy'); //// link between copies and book
+    }
 }
