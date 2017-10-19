@@ -91,10 +91,10 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('author') ? ' has-error' : '' }}">
-                            <label for="author" class="col-md-4 control-label">Autor</label>
+                            <label for="author" class="col-md-4 control-label">Escolhe pelo menos um Autor</label>
 
                             <div class="col-md-6">
-                                <select class="form-control" multiple="multiple" name="author[]" required autofocus>
+                                <select class="form-control input-lg" multiple="multiple" name="author[]" id="prettify data-placeholder" required>
                                 @foreach($authors as $author)
                                     <option value="{{$author->id}}">{{$author->name}}</option>
                                 @endforeach

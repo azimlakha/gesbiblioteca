@@ -10,6 +10,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <link href="{{ asset('//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css') }}" rel="stylesheet" />
     <!-- Styles -->
         <!--<link href="{{ asset('css/app.css') }}" rel="stylesheet" />-->
         <link href="{{ asset('template/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
@@ -20,15 +21,6 @@
         <link href="{{ asset('template/css/responsive-tables.css') }}" rel="stylesheet" >
         
         <link href="{{ asset('template/css/theme.css') }}" rel="stylesheet" >
-        
-        <script src="{{ asset('template/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}" type="text/javascript" ></script>
-        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-        <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-        <!--[if IE 7]>
-        <link type="text/css" rel="stylesheet" href="assets/Font-awesome/css/font-awesome-ie7.min.css"/>
-        <![endif]-->
-
 
 </head>
 <body>
@@ -166,12 +158,21 @@
         @yield('content')
     </div>
 
-    <!-- Scripts -->
+           
+        <script src="{{ asset('template/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}" type="text/javascript" ></script>
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+        <!--[if IE 7]>
+        <link type="text/css" rel="stylesheet" href="assets/Font-awesome/css/font-awesome-ie7.min.css"/>
+        <![endif]-->
+
+<!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
             <!-- /#helpModal -->
 
 
-
+        <script src="{{ asset('//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js') }}"></script>
         <script src="{{ asset('//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js') }}"></script>
         <script>window.jQuery || document.write('<script src="{{ asset('template/js/vendor/jquery-1.10.1.min.js') }}"><\/script>')</script>
 
@@ -195,5 +196,8 @@
         
         
         <script src="{{ asset('template/js/style-switcher.js') }}" type="text/javascript"></script>
+        <script type="text/javascript">
+            $('#prettify').select2();
+        </script>
 </body>
 </html>
