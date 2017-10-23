@@ -47,9 +47,9 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-       /** $validator = Validator::make($request->all(), [
-            'title' => 'required|string|255',
-            'edition' => 'required|string|255',
+       $validator = Validator::make($request->all(), [
+        /*    'title' => 'required|string|255',
+            'edition' => 'required|string|255',*/
             'ISBN' => 'required|integer|unique:books',
         ]);
 
@@ -58,7 +58,7 @@ class BookController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-*/
+
         $subscribe        = new Book;
         $subscribe->title = $request->title;
         $subscribe->edition = $request->edition;

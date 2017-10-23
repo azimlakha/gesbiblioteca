@@ -17,11 +17,13 @@ class CreateCopiesTable extends Migration
             $table->increments('id');
             $table->tinyInteger('conservation');
 
+            $table->integer('book_id')->unsigned();
+            $table->foreign('book_id')->references('id')->on('books');
+
             $table->integer('location_id')->unsigned();
             $table->foreign('location_id')->references('id')->on('locations');
 
-            $table->integer('book_id')->unsigned();
-            $table->foreign('book_id')->references('id')->on('books');
+            $table->unique(['id', 'book_id']);
 
             $table->timestamps();
         });

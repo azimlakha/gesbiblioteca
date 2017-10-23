@@ -19,5 +19,11 @@ class Copy extends Model
     	return $this->belongsTo('App\Book'); // link between book and copy
     }
 
+    public function bookings(){
+        return $this->hasMany('App\Booking');
+    }
 
+    public function lends(){
+        return $this->hasMany('App\Lend');
+    }
 }

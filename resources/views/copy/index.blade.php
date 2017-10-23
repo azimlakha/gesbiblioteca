@@ -10,19 +10,19 @@
 
     <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
     <thead>
-    <a href="bookcase/create" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar nova Estante</a>
+    <a href="copy/create" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar novo Exemplar</a>
         <tr>
             <th>ID</th>
-            <th>Nome</th>
-            <th>Descrição</th>
+            <th>Título do Livro</th>
+            <th>Localização</th>
             <th class="text-center">Acção</th>
         </tr>
     </thead>
-            @foreach($bookcases as $bookcase)
+            @foreach($copies as $copy)
            <tr>
-               <td>{{$bookcase->id}}</td>
-               <td>{{$bookcase->name}}</td>
-               <td>{{$bookcase->description}}</td>
+               <td>{{$copy->id.'_'.$copy->book->ISBN}}</td>
+               <td>{{$copy->book->title}}</td>
+               <td>{{$copy->location->section->name.'_'.$copy->location->bookcase->name.'_'.$copy->location->shelf->name}}</td>
                <td class="text-center">
 
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@shelf('content') 
+@section('content')
 <div class="container">
     <div class="row col-md-6 col-md-offset-2 custyle">
 
@@ -33,4 +33,4 @@
     </div>
 </div>
 
-@endshelf
+@endsection

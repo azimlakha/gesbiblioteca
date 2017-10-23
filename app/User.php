@@ -23,6 +23,14 @@ class User extends Authenticatable
         return $this->belongsTo('App\Profile');
     }
 
+    public function bookings(){
+        return $this->hasMany('App\Booking');
+    }
+
+    public function lends(){
+        return $this->hasMany('App\Lend');
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

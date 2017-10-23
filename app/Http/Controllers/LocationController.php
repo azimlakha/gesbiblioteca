@@ -45,7 +45,7 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+     /*   $validator = Validator::make($request->all(), [
             'section_id' => 'required|unique_with:locations, bookcase_id, shelf_id',
             'bookcase_id' => 'required',
             'shelf_id' => 'required',
@@ -56,7 +56,7 @@ class LocationController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-
+*/
         $subscribe        = new location;
         $subscribe->section_id = $request->section_id;
         $subscribe->bookcase_id = $request->bookcase_id;
