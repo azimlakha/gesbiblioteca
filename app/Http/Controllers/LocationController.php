@@ -45,23 +45,30 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-     /*   $validator = Validator::make($request->all(), [
-            'section_id' => 'required|unique_with:locations, bookcase_id, shelf_id',
+        $validator = Validator::make($request->all(), [
+            'section_id' => 'required',
             'bookcase_id' => 'required',
             'shelf_id' => 'required',
         ]);
 
         if ($validator->fails()) {
-            return redirect('location/create')
+            return redirect('location/edit')
                         ->withErrors($validator)
                         ->withInput();
         }
-*/
-        $subscribe        = new location;
+
+
+        
+        try{
+            $subscribe        = new location;
         $subscribe->section_id = $request->section_id;
         $subscribe->bookcase_id = $request->bookcase_id;
         $subscribe->shelf_id = $request->shelf_id;
         $subscribe->save();
+
+    }catch(\Exception $e){
+       return redirect()->route('location')->with('message','Localização ja existe!');
+    }
 
          //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
          
@@ -86,6 +93,12 @@ class LocationController extends Controller
     public function edit($id)
     {
         //
+        $location = Location::find($id);
+        $sections = Section::all();
+        $bookcases = Bookcase::all();
+        $shelfs = Shelf::all();
+
+        return view('location.edit', compact('location', 'sections', 'bookcases', 'shelfs'));
     }
     /**
      * Update the specified resource in storage.
@@ -97,7 +110,36 @@ class LocationController extends Controller
     public function update(Request $request, $id)
     {
         //
+         $validator = Validator::make($request->all(), [
+            'section_id' => 'required',
+            'bookcase_id' => 'required',
+            'shelf_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('location/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+
+        
+        try{
+            $subscribe        = Location::find($id);
+        $subscribe->section_id = $request->section_id;
+        $subscribe->bookcase_id = $request->bookcase_id;
+        $subscribe->shelf_id = $request->shelf_id;
+        $subscribe->save();
+
+    }catch(\Exception $e){
+       return redirect()->route('location')->with('message','Localização ja existe!');
     }
+
+         //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
+         
+         return redirect()->route('location')->with('message','Localização actualizada com sucesso!');
+    }
+    
     /**
      * Remove the specified resource from storage.
      *

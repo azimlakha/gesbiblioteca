@@ -76,6 +76,9 @@ class SubjectController extends Controller
     public function edit($id)
     {
         //
+        $subject = Subject::find($id);
+
+        return view('subject.edit', compact('subject'));
     }
     /**
      * Update the specified resource in storage.
@@ -87,6 +90,25 @@ class SubjectController extends Controller
     public function update(Request $request, $id)
     {
         //
+         {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255|',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('subject/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $subscribe        = Subject::find($id);
+        $subscribe->name = $request->name;
+        $subscribe->save();
+
+         //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
+         
+         return redirect()->route('subject')->with('message','Disciplina actualizada com sucesso!');
+    }
     }
     /**
      * Remove the specified resource from storage.

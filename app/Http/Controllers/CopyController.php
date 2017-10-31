@@ -86,6 +86,10 @@ class CopyController extends Controller
     public function edit($id)
     {
         //
+        $books = Book::all();
+        $locations = Location::all();
+        $copy = Location::find($id);
+        return view('copy.edit', compact('copy', 'books', 'locations'));
     }
     /**
      * Update the specified resource in storage.

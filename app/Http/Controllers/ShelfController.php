@@ -77,6 +77,9 @@ class ShelfController extends Controller
     public function edit($id)
     {
         //
+        $shelf = Shelf::find($id);
+
+        return view('shelf.edit', compact('shelf'));
     }
     /**
      * Update the specified resource in storage.
@@ -88,6 +91,26 @@ class ShelfController extends Controller
     public function update(Request $request, $id)
     {
         //
+        {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('shelf/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $subscribe        = Shelf::find($id);
+        $subscribe->name = $request->name;
+        $subscribe->description = $request->description;
+        $subscribe->save();
+
+         //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
+         
+         return redirect()->route('shelf')->with('message','Prateleira atualizada com sucesso!');
+    }
     }
     /**
      * Remove the specified resource from storage.

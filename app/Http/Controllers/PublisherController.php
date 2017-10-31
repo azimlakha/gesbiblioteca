@@ -76,6 +76,9 @@ class PublisherController extends Controller
     public function edit($id)
     {
         //
+        $publisher = Publisher::find($id);
+
+        return view('publisher.edit', compact('publisher'));
     }
     /**
      * Update the specified resource in storage.
@@ -87,6 +90,23 @@ class PublisherController extends Controller
     public function update(Request $request, $id)
     {
         //
+         $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('publisher/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $subscribe        = Publisher::find($id);
+        $subscribe->name = $request->name;
+        $subscribe->save();
+
+         //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
+         
+         return redirect()->route('publisher')->with('message','Disciplina actualizada com sucesso!');
     }
     /**
      * Remove the specified resource from storage.

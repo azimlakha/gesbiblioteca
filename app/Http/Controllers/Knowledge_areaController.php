@@ -55,7 +55,7 @@ class Knowledge_areaController extends Controller
 
          //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
          
-         return redirect()->route('knowledge_area')->with('message','Disciplina adicionada com sucesso!');
+         return redirect()->route('knowledge_area')->with('message','Area de conhecimento adicionada com sucesso!');
     }
     /**
      * Display the specified resource.
@@ -76,6 +76,9 @@ class Knowledge_areaController extends Controller
     public function edit($id)
     {
         //
+         $knowledge_area = Knowledge_area::find($id);
+
+        return view('knowledge_area.edit', compact('knowledge_area'));
     }
     /**
      * Update the specified resource in storage.
@@ -87,6 +90,23 @@ class Knowledge_areaController extends Controller
     public function update(Request $request, $id)
     {
         //
+         $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('knowledge_area/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $subscribe        = Knowledge_area::find($id);
+        $subscribe->name = $request->name;
+        $subscribe->save();
+
+         //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
+         
+         return redirect()->route('knowledge_area')->with('message','Area de conhecimento actualizada com sucesso!');
     }
     /**
      * Remove the specified resource from storage.

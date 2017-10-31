@@ -66,6 +66,9 @@ class AuthorController extends Controller
     public function show($id)
     {
         //
+       // $author = Author::find($id);
+
+       // return view('author.edit', compact('author'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -75,7 +78,9 @@ class AuthorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $author = Author::find($id);
+
+        return view('author.edit', compact('author'));
     }
     /**
      * Update the specified resource in storage.
@@ -87,6 +92,25 @@ class AuthorController extends Controller
     public function update(Request $request, $id)
     {
         //
+          $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255|',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('author/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $subscribe        =  Author::find($id);
+        $subscribe->name = $request->name;
+        $subscribe->save();
+
+         //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
+         
+         return redirect()->route('author')->with('message','Autor Actualizado com sucesso!');
+
+
     }
     /**
      * Remove the specified resource from storage.

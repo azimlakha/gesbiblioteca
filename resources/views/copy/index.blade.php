@@ -15,6 +15,7 @@
             <th>ID</th>
             <th>Título do Livro</th>
             <th>Localização</th>
+            <th>Disponibilidade</th>
             <th class="text-center">Acção</th>
         </tr>
     </thead>
@@ -23,10 +24,11 @@
                <td>{{$copy->id.'_'.$copy->book->ISBN}}</td>
                <td>{{$copy->book->title}}</td>
                <td>{{$copy->location->section->name.'_'.$copy->location->bookcase->name.'_'.$copy->location->shelf->name}}</td>
+               <td>{{$copy->conservation == 1 ? "Disponivel" : "Indisponivel"}}</td>
                <td class="text-center">
 
 
-               <a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+               <a class='btn btn-info btn-xs' href="{{route('copy.edit', $copy->id)}}"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
            </tr>
            @endforeach
     </table>

@@ -44,6 +44,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     Registar
                                 </button>
+                                 <a class="btn btn-primary" href="{{ route('shelf') }}">
+                                   Cancel
+                                </a>
                             </div>
                         </div>
                     </form>

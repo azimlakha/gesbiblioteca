@@ -77,6 +77,10 @@ class BookcaseController extends Controller
     public function edit($id)
     {
         //
+
+        $bookcase = Bookcase::find($id);
+
+        return view('bookcase.edit', compact('bookcase'));
     }
     /**
      * Update the specified resource in storage.
@@ -88,6 +92,24 @@ class BookcaseController extends Controller
     public function update(Request $request, $id)
     {
         //
+         $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255|',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('bookcase/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $subscribe        = Bookcase::find($id);
+        $subscribe->name = $request->name;
+        $subscribe->description = $request->description;
+        $subscribe->save();
+
+         //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
+         
+         return redirect()->route('bookcase')->with('message','Estante Actualizada com sucesso!');
     }
     /**
      * Remove the specified resource from storage.

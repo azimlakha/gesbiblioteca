@@ -77,6 +77,9 @@ class SectionController extends Controller
     public function edit($id)
     {
         //
+        $section = Section::find($id);
+
+        return view('section.edit', compact('section'));
     }
     /**
      * Update the specified resource in storage.
@@ -87,7 +90,24 @@ class SectionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('section/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $subscribe        = Section::find($id);
+        $subscribe->name = $request->name;
+        $subscribe->description = $request->description;
+        $subscribe->save();
+
+         //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
+         
+         return redirect()->route('section')->with('message','Secção actualizada com sucesso!');
     }
     /**
      * Remove the specified resource from storage.

@@ -30,6 +30,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     Registar
                                 </button>
+                                 <a class="btn btn-primary" href="{{ route('subject') }}">
+                                   Cancel
+                                </a>
                             </div>
                         </div>
                     </form>
