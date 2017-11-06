@@ -76,10 +76,12 @@ class RegisterController extends Controller
 
         $user_id = $user->id;
 
-        return Profile::create([
-            'user_id' => $user_id,
-            'code' => $data['code'],
-            'profile' => 'Estudante',
-        ]);
+        $profile    = new Profile;
+        $profile->user_id = $user_id;
+        $profile->code = $data['code'];
+        $profile->profile = 'Estudante';
+        $profile->save();
+
+        return $user;
     }
 }
