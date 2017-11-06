@@ -17,7 +17,9 @@ class CreateBooksTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('edition')->nullable();
-            $table->integer('ISBN')->unique();
+            $table->string('thumbnail');
+            $table->integer('pages');
+            $table->string('ISBN')->unique();
 
             $table->integer('publisher_id')->unsigned();
             $table->foreign('publisher_id')->references('id')->on('publishers');

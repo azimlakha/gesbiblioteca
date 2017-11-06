@@ -25,29 +25,15 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('surname') ? ' has-error' : '' }}">
-                            <label for="surname" class="col-md-4 control-label">Apelido</label>
+                        <div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}">
+                            <label for="code" class="col-md-4 control-label">Código</label>
 
                             <div class="col-md-6">
-                                <input id="surname" type="text" class="form-control" name="surname" value="{{ old('surname') }}" required autofocus>
+                                <input id="code" type="text" class="form-control" name="code" value="{{ old('code') }}" required autofocus>
 
-                                @if ($errors->has('surname'))
+                                @if ($errors->has('code'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('surname') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                            <label for="phone" class="col-md-4 control-label">Telefone</label>
-
-                            <div class="col-md-6">
-                                <input id="phone" type="text" class="form-control" name="phone" value="{{ old('phone') }}" required autofocus>
-
-                                @if ($errors->has('phone'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('phone') }}</strong>
+                                        <strong>{{ $errors->first('code') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -93,12 +79,12 @@
                             <label for="profile" class="col-md-4 control-label">Perfil</label>
 
                             <div class="col-md-6">
-                                <select class="form-control" name="profile_id" required autofocus>
+                                <select class="form-control" name="profile" required autofocus>
                                     <option value="">--Seleccione o Perfil--</option>
-                                    <option value="1">Administrador</option>
-                                    <option value="2">Bibliotecário</option>
-                                    <option value="3">Estudante</option>
-                                    <option value="4">Professor</option>
+                                    <option value="Administrador">Administrador</option>
+                                    <option value="Bibliotecario">Bibliotecário</option>
+                                    <option value="Estudante">Estudante</option>
+                                    <option value="Professor">Professor</option>
                                 </select>
                             </div>
                         </div>

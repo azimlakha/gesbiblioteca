@@ -51,9 +51,8 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
-            'surname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'required|string|min:8|max:15',
+            'code' => 'required|string|min:8|max:8|unique:profiles',
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
@@ -66,15 +65,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-    $profile        = new Profile;
-    $profile = DB::table('profiles')->where('name', '=', 'estudante')->get()->first();
-        return User::create([
-            'name' => $data['name'],
-            'surname' => $data['surname'],
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-            'password' => bcrypt($data['password']),
-            'profile_id' => $profile->id,
+    //$profile        = new Profile;
+    //$profile = DB::table('profiles')->where('name', '=', 'estudante')->get()->first();
+
+        $user        = new User;
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = bcrypt($data['password']);
+        $user->save();
+
+        $user_id = $user->id;
+
+        return Profile::create([
+            'user_id' => $user_id,
+            'code' => $data['code'],
+            'profile' => 'Estudante',
         ]);
     }
 }

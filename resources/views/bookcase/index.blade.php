@@ -10,7 +10,7 @@
 
     <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
     <thead>
-    <a href="bookcase/create" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar nova Estante</a>
+    <a href="asset/create" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar nova Estante</a>
         <tr>
             <th>ID</th>
             <th>Nome</th>

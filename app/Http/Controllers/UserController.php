@@ -7,6 +7,7 @@ use Validator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\User;
+use App\Profile;
 
 class UserController extends Controller
 {
@@ -33,9 +34,8 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'surname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'required|string|min:8|max:15',
+            'code' => 'required|string|min:8|max:8|unique:profiles',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
@@ -45,14 +45,19 @@ class UserController extends Controller
                         ->withInput();
         }
 
-        $subscribe        = new User;
-        $subscribe->name = $request->name;
-        $subscribe->surname = $request->surname;
-        $subscribe->email = $request->email;
-        $subscribe->phone = $request->phone;
-        $subscribe->password = bcrypt($request->password);
-        $subscribe->profile_id = $request->profile_id;
-        $subscribe->save();
+        $user        = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        $user_id = $user->id;
+
+        $profile = new Profile;
+        $profile->user_id = $user_id;
+        $profile->code = $request->code;
+        $profile->profile = $request->profile;
+        $profile->save();
 
          //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
          

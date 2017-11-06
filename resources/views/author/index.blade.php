@@ -2,7 +2,7 @@
 
 @section('content') 
 <div class="container">
-    <div class="row col-md-6 col-md-offset-2 custyle">
+    <div class="row col-md-10 col-md-offset-1custyle">
 
     @if(Session::has('message'))
       <div class='alert alert-success'>{{ Session::get('message') }}</div>
@@ -14,6 +14,9 @@
         <tr>
             <th>ID</th>
             <th>Nome</th>
+            <th>Data de Nascimento</th>
+            <th>Pais</th>
+            <th>Biografia</th>
             <th class="text-center">Acção</th>
         </tr>
     </thead>
@@ -21,6 +24,9 @@
            <tr>
                <td>{{$author->id}}</td>
                <td>{{$author->name}}</td>
+               <td>{{$author->birth_date}}</td>
+               <td>{{$author->country}}</td>
+               <td>{{$author->biography}}</td>
                <td class="text-center">
 
 

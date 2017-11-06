@@ -11,17 +11,6 @@ class ProfilesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('profiles')->insert([
-            'name' => 'superuser'
-        ]);
-        DB::table('profiles')->insert([
-            'name' => 'bibliotecario'
-        ]);
-        DB::table('profiles')->insert([
-            'name' => 'estudante'
-        ]);
-        DB::table('profiles')->insert([
-            'name' => 'professor'
-        ]);
+       
     }
 }

@@ -24,11 +24,13 @@ Route::get('signup', 'UserController@signup')->name('signup');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+Route::get('asset/create', 'LocationAssetsController@create');
+Route::post('asset/store', 'LocationAssetsController@store')->name('asset/store');
+
 Route::group(['prefix'=>'section'], function()
 	{
 		Route::get('', ['uses'=>'SectionController@index'])->name('section');
-		Route::get('create', ['uses'=>'SectionController@create']);
-		Route::post('store', ['uses'=>'SectionController@store'])->name('section/store');
 		Route::get('{id}/show', ['uses'=>'SectionController@show'])->name('section.show');
 		Route::get('{id}/edit', ['uses'=>'SectionController@edit'])->name('section.edit');
 		Route::put('{id}/update', ['uses'=>'SectionController@update'])->name('section.update');
@@ -38,8 +40,6 @@ Route::group(['prefix'=>'section'], function()
 Route::group(['prefix'=>'bookcase'], function()
 	{
 		Route::get('', ['uses'=>'BookcaseController@index'])->name('bookcase');
-		Route::get('create', ['uses'=>'BookcaseController@create']);
-		Route::post('store', ['uses'=>'BookcaseController@store'])->name('bookcase/store');
 		Route::get('{id}/show', ['uses'=>'BookcaseController@show'])->name('bookcase.show');
 		Route::get('{id}/edit', ['uses'=>'BookcaseController@edit'])->name('bookcase.edit');
 		Route::put('{id}/update', ['uses'=>'BookcaseController@update'])->name('bookcase.update');
@@ -49,8 +49,6 @@ Route::group(['prefix'=>'bookcase'], function()
 Route::group(['prefix'=>'shelf'], function()
 	{
 		Route::get('', ['uses'=>'ShelfController@index'])->name('shelf');
-		Route::get('create', ['uses'=>'ShelfController@create']);
-		Route::post('store', ['uses'=>'ShelfController@store'])->name('shelf/store');
 		Route::get('{id}/show', ['uses'=>'ShelfController@show'])->name('shelf.show');
 		Route::get('{id}/edit', ['uses'=>'ShelfController@edit'])->name('shelf.edit');
 		Route::put('{id}/update', ['uses'=>'ShelfController@update'])->name('shelf.update');

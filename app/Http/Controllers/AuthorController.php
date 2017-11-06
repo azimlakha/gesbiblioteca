@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Author;
+use App\Countries;
 
 class AuthorController extends Controller
 {
@@ -28,7 +29,8 @@ class AuthorController extends Controller
      */
     public function create()
     {
-           return view('author.register');
+          $countries = Countries::all();
+           return view('author.register', compact('countries'));
     }
 
     /**
@@ -41,6 +43,8 @@ class AuthorController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255|unique:authors',
+            'country' => 'required',
+            'birth_date' => 'required|date',
         ]);
 
         if ($validator->fails()) {
@@ -51,6 +55,9 @@ class AuthorController extends Controller
 
         $subscribe        = new Author;
         $subscribe->name = $request->name;
+        $subscribe->country = $request->country;
+        $subscribe->birth_date = $request->birth_date;
+        $subscribe->biography = $request->biography;
         $subscribe->save();
 
          //return Redirect::to('/user')->with('message','User adicionado com sucesso!');

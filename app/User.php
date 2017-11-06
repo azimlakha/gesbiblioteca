@@ -15,12 +15,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'surname', 'email', 'phone', 'password', 'profile_id', 'created_at', 'updated_at'
+
+        'name', 'email', 'password', 'created_at', 'updated_at'
     ];
 
     public function profile(){
-
-        return $this->belongsTo('App\Profile');
+        
+        return $this->hasOne('App\Profile');
     }
 
     public function bookings(){

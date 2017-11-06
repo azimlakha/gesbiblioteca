@@ -10,7 +10,7 @@
 
     <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
     <thead>
-    <a href="section/create" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar nova Secção</a>
+    <a href="asset/create" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar nova Secção</a>
         <tr>
             <th>ID</th>
             <th>Nome</th>

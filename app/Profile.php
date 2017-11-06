@@ -8,10 +8,11 @@ class Profile extends Model
 {
     //
     protected $fillable = [
-        'name'
+
+        'surname', 'code', 'phone', 'profile', 'user_id'
     ];
 
-    public function users(){
-    	return $this->hasMany('App\User');
+    public function user(){
+    	return $this->belongsTo('App\User');
     }
 }

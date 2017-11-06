@@ -48,15 +48,35 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('shelf_id') ? ' has-error' : '' }}">
-                                <label for="conservation" class="col-md-4 control-label">Disponibilidade</label>
 
-                                <div class="col-md-6">
-                                        <input class="form-control" type="radio" name="conservation" value="1" checked> Disponível<br>
-                                        <input class="form-control" type="radio" name="conservation" value="0"> Indisponível<br>
-                                    </select>
-                                </div>
+ <!--                           <div class="form-group{{ $errors->has('conservation') ? ' has-error' : '' }}">
+                            <label for="conservation" class="col-md-4 control-label">Conservação</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control" name="conservation" required autofocus>
+                                    <option value="">--Seleccione o Estado de Conservação--</option>
+                                    <option value="bom">Bom</option>
+                                    <option value="restauracao">Em Restauração</option>
+                                    <option value="danificado">Danificado</option>
+                                    <option value="extraviado">Extraviado</option>
+                                </select>
                             </div>
+                        </div>
+-->
+                        <div class="form-group{{ $errors->has('notes') ? ' has-error' : '' }}">
+                            <label for="notes" class="col-md-4 control-label">Notas</label>
+
+                            <div class="col-md-6">
+                                <textarea rows="4" cols="50" id="notes" class="form-control" name="notes" value="{{ old('notes') }}" autofocus>
+                                </textarea>
+
+                                @if ($errors->has('notes'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('notes') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">

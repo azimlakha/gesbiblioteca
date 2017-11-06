@@ -57,9 +57,10 @@ class CopyController extends Controller
          */
         for ($i = 1; $i <= $request->copy_num; $i++){
             $subscribe        = new Copy;
-            $subscribe->conservation = $request->conservation;
+            $subscribe->conservation = 'Bom';
             $subscribe->book_id = $request->book_id;
             $subscribe->location_id = $request->location_id;
+            $subscribe->notes = $request->notes;
             $subscribe->save();
         }
 

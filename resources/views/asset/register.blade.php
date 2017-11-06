@@ -8,7 +8,7 @@
                 <div class="panel-heading">Registar Secção</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('section/store') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('asset/store') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('component') ? ' has-error' : '' }}">

@@ -50,7 +50,7 @@ class BookController extends Controller
        $validator = Validator::make($request->all(), [
         /*    'title' => 'required|string|255',
             'edition' => 'required|string|255',*/
-            'ISBN' => 'required|integer|unique:books',
+            'ISBN' => 'required|string|max:14|min:10|unique:books',
         ]);
 
         if ($validator->fails()) {

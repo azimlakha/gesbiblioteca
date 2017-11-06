@@ -15,7 +15,8 @@ class CreateCopiesTable extends Migration
     {
         Schema::create('copies', function (Blueprint $table) {
             $table->increments('id');
-            $table->tinyInteger('conservation');
+            $table->string('conservation');
+            $table->text('notes')->nullable();
 
             $table->integer('book_id')->unsigned();
             $table->foreign('book_id')->references('id')->on('books');

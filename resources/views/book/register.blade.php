@@ -27,6 +27,24 @@
                             </div>
                         </div>
 
+
+
+                        <div class="form-group{{ $errors->has('thumbnail') ? ' has-error' : '' }}">
+                            <label>Upload Image</label>
+                            <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-default btn-file">
+                                        Browse… <input type="file" id="imgInp" required>
+                                    </span>
+                                </span>
+                                <input type="text" class="form-control" readonly>
+                            </div>
+                            <img id='img-upload'/>
+                            </div>
+                        </div>
+                    
+
                         <div class="form-group{{ $errors->has('edition') ? ' has-error' : '' }}">
                             <label for="edition" class="col-md-4 control-label">Edição</label>
 
@@ -50,6 +68,21 @@
                                 @if ($errors->has('ISBN'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('ISBN') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+<
+                        <div class="form-group{{ $errors->has('pages') ? ' has-error' : '' }}">
+                            <label for="pages" class="col-md-4 control-label">Páginas</label>
+
+                            <div class="col-md-6">
+                                <input id="pages" type="text" class="form-control" name="pages" value="{{ old('pages') }}" required autofocus>
+
+                                @if ($errors->has('pages'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('pages') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -128,4 +161,42 @@ $(document).ready(function() {
 });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+
+<script>
+    $(document).ready( function() {
+        $(document).on('change', '.btn-file :file', function() {
+        var input = $(this),
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function(event, label) {
+            
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+            
+            if( input.length ) {
+                input.val(log);
+            } else {
+                if( log ) alert(log);
+            }
+        
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function (e) {
+                    $('#img-upload').attr('src', e.target.result);
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp").change(function(){
+            readURL(this);
+        });     
+    });
+</script>
 @endsection
