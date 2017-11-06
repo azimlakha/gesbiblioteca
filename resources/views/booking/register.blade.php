@@ -14,48 +14,18 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
-                            <label for="date" class="col-md-4 control-label">Data da Reserva</label>
+                            <label for="date" class="col-md-4 control-label">Data/Hora da Reserva</label>
 
                             <div class="col-md-6">
                                 <div class="input-group date">
-                                <input size="16" type="text" value="" class="date form-control" required>
+                                <input size="16" type="text" name="start_date" value="" class="date form-control" required>
                                 <span class="add-on"><i class="icon-remove"></i></span>
                                 <span class="add-on"><i class="icon-calendar"></i></span>
                             </div>
-
-                            <script type="text/javascript">
-                                    $('.date').datetimepicker({
-                                        format: "dd MM yyyy - hh:ii",
-                                        daysOfWeekDisabled: [0,6]
-                                    });
-                            </script>
 
                             @if ($errors->has('start_date'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('start_date') }}</strong>
-                                    </span>
-                            @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('start_time') ? ' has-error' : '' }}">
-                            <label for="time" class="col-md-4 control-label">Hora da Reserva</label>
-
-                            <div class="col-md-6">
-                                <div class="input-group date">
-                                <input size="16" type="text" value="" class="time form-control" required>
-                                <span class="add-on"><i class="icon-remove"></i></span>
-                                <span class="add-on"><i class="icon-calendar"></i></span>
-                            </div>
-
-                            <script type="text/javascript">
-                                    $('.time').datetimepicker({
-                                        format: "hh:ii"
-                                    });
-                            </script>
-                            @if ($errors->has('start_time'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('start_time') }}</strong>
                                     </span>
                             @endif
                             </div>
@@ -83,6 +53,12 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <input id="id" type="hidden" class="form-control" name="book_id" value="{{$book->id}}">
+                            </div>
+                        </div>
+                        
                         <div class="form-group">
                             <label for="title" class="col-md-4 control-label">Título</label>
 
