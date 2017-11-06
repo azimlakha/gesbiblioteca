@@ -24,9 +24,12 @@ Route::get('signup', 'UserController@signup')->name('signup');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
 Route::get('asset/create', 'LocationAssetsController@create');
 Route::post('asset/store', 'LocationAssetsController@store')->name('asset/store');
+
+Route::get('/homepage', 'BookingController@index')->name('homepage');
+Route::get('booking/{id}/create', 'BookingController@create')->name('booking.create');
+Route::post('booking/store', 'BookingController@store')->name('booking/store');
 
 Route::group(['prefix'=>'section'], function()
 	{

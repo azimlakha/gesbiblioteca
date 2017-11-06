@@ -47,21 +47,26 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-       $validator = Validator::make($request->all(), [
+     /*  $validator = Validator::make($request->all(), [
         /*    'title' => 'required|string|255',
-            'edition' => 'required|string|255',*/
-            'ISBN' => 'required|string|max:14|min:10|unique:books',
+            'edition' => 'required|string|255',
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
 
         if ($validator->fails()) {
             return redirect('book/create')
                         ->withErrors($validator)
                         ->withInput();
-        }
+        }*/
 
         $subscribe        = new Book;
         $subscribe->title = $request->title;
         $subscribe->edition = $request->edition;
+        $imageName = time().'.'.$request->thumbnail->getClientOriginalExtension();
+        request()->thumbnail->move(public_path('img'), $imageName);
+        $subscribe->thumbnail = $imageName;
+        $subscribe->pages = $request->pages;
         $subscribe->ISBN = $request->ISBN;
         $subscribe->publisher_id = $request->publisher_id;
         $subscribe->subject_id = $request->subject_id;

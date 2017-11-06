@@ -8,7 +8,7 @@ class Book extends Model
 {
     //
     protected $fillable = [
-        'title', 'edition', 'ISBN', 'publisher_id', 'subject_id', 'knowledge_area_id', 'created_at', 'updated_at'
+        'title', 'edition', 'thumbnail', 'pages', 'ISBN', 'publisher_id', 'subject_id', 'knowledge_area_id', 'created_at', 'updated_at'
     ];
 
     public function publisher(){

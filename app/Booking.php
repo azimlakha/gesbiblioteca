@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     protected $fillable = [
-        'cod_booking', 'start_date', 'end_date', 'users_id', 'copy_id', 'status'
+        'cod_booking', 'start_date', 'end_date', 'user_id', 'copy_id', 'status'
     ];
 
     public function copy(){
