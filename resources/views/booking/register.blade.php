@@ -50,6 +50,9 @@
                         </div>
 
                        <!-- <div class="form-group{{ $errors->has('duration') ? ' has-error' : '' }}">
+=======
+                        <div class="form-group{{ $errors->has('duration') ? ' has-error' : '' }}">
+>>>>>>> 131de46d9b7af22702e825226a4e56185fdc0fcc
                             <label for="duration" class="col-md-4 control-label">Duração</label>
 
                             <div class="col-md-6">
@@ -71,6 +74,12 @@
                             </div>
                         </div>-->
 
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <input id="id" type="hidden" class="form-control" name="book_id" value="{{$book->id}}">
+                            </div>
+                        </div>
+                        
                         <div class="form-group">
                             <label for="title" class="col-md-4 control-label">Título</label>
 

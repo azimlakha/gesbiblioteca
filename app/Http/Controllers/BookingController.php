@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
+use DateTime;
 use Illuminate\Http\Request;
 use App\Book;
-use Validator;
 use Illuminate\Support\Facades\DB;
 use App\Booking;
+use App\Copy;
 
 class BookingController extends Controller
 {
@@ -35,15 +37,14 @@ class BookingController extends Controller
        $validator = Validator::make($request->all(), [
         /*    'title' => 'required|string|255',*/
             'start_date' => 'required',
-            'end_date' => 'required',
+            'duration' => 'required',
         ]);
 
         if ($validator->fails()) {
-            return redirect('booking/create')
+            return redirect('booking/$request->book_id/create')
                         ->withErrors($validator)
                         ->withInput();
         }
-
         $i=0;
 
         do{
@@ -61,7 +62,8 @@ class BookingController extends Controller
 
            }    
         }while ($num<>0); 
-            
+
+        $user = auth()->user();
         $subscribe        = new Booking;
         //$subscribe->cod_booking = $request->cod_booking;
         $subscribe->start_date = $request->start_date;
@@ -70,9 +72,8 @@ class BookingController extends Controller
         $subscribe->copy_id =  $copy_id;
         $subscribe->status = 'reservado';
         $subscribe->save();
-
-         //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
-         
+        $randomString = str_random(25);
+ 
          return redirect()->route('homepage')->with('message','Rsereva efectuada com sucesso!');
     }
 }
