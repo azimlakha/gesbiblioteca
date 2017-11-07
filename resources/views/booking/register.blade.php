@@ -14,21 +14,14 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
-                            <label for="date" class="col-md-4 control-label">Data da Reserva</label>
+                            <label for="date" class="col-md-4 control-label">Data Hora da Reserva</label>
 
                             <div class="col-md-6">
                                 <div class="input-group date">
-                                <input size="16" type="text" value="" class="date form-control" required>
+                                <input size="16" type="datetime-local" value="" class="date form-control" min="2017-11-05" max="2018-06-30" name="start_date" required>
                                 <span class="add-on"><i class="icon-remove"></i></span>
                                 <span class="add-on"><i class="icon-calendar"></i></span>
                             </div>
-
-                            <script type="text/javascript">
-                                    $('.date').datetimepicker({
-                                        format: "dd MM yyyy - hh:ii",
-                                        daysOfWeekDisabled: [0,6]
-                                    });
-                            </script>
 
                             @if ($errors->has('start_date'))
                                     <span class="help-block">
@@ -38,30 +31,25 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('start_time') ? ' has-error' : '' }}">
-                            <label for="time" class="col-md-4 control-label">Hora da Reserva</label>
+                        <div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}">
+                            <label for="time" class="col-md-4 control-label">Ate:</label>
 
                             <div class="col-md-6">
                                 <div class="input-group date">
-                                <input size="16" type="text" value="" class="time form-control" required>
+                                <input size="16" type="datetime-local" value="" class="time form-control" name="end_date" required>
                                 <span class="add-on"><i class="icon-remove"></i></span>
                                 <span class="add-on"><i class="icon-calendar"></i></span>
                             </div>
 
-                            <script type="text/javascript">
-                                    $('.time').datetimepicker({
-                                        format: "hh:ii"
-                                    });
-                            </script>
-                            @if ($errors->has('start_time'))
+                            @if ($errors->has('end_date'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('start_time') }}</strong>
+                                        <strong>{{ $errors->first('end_date') }}</strong>
                                     </span>
                             @endif
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('duration') ? ' has-error' : '' }}">
+                       <!-- <div class="form-group{{ $errors->has('duration') ? ' has-error' : '' }}">
                             <label for="duration" class="col-md-4 control-label">Duração</label>
 
                             <div class="col-md-6">
@@ -81,13 +69,20 @@
                                     <option value="60">03 Horas </option>
                                 </select>
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="form-group">
                             <label for="title" class="col-md-4 control-label">Título</label>
 
                             <div class="col-md-6">
                                 <input id="title" type="text" class="form-control" name="title" value="{{$book->title}}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<label type="hidden" for="title" class="col-md-4 control-label">Id do Livro</label>-->
+
+                            <div class="col-md-6">
+                                <input id="title" type="hidden" class="form-control" name="book_id" value="{{$book->id}}" readonly >
                             </div>
                         </div>
 

@@ -24,7 +24,7 @@
                <td>{{$copy->id.'_'.$copy->book->ISBN}}</td>
                <td>{{$copy->book->title}}</td>
                <td>{{$copy->location->section->name.'_'.$copy->location->bookcase->name.'_'.$copy->location->shelf->name}}</td>
-               <td>{{$copy->conservation == 1 ? "Disponivel" : "Indisponivel"}}</td>
+               <td>{{$copy->conservation == "Bom" ? "Disponivel" : "Indisponivel"}}</td>
                <td class="text-center">
 
 
