@@ -24,12 +24,16 @@ Route::get('signup', 'UserController@signup')->name('signup');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('asset/create', 'LocationAssetsController@create');
-Route::post('asset/store', 'LocationAssetsController@store')->name('asset/store');
+Route::get('/admin', 'AdminController@index')->name('admin');
+
+Route::get('errors/permition', 'ErrorsController@index')->name('errors/permition');
+
+Route::get('asset/create', 'LocationAssetsController@create')->middleware('auth', 'admin');
+Route::post('asset/store', 'LocationAssetsController@store')->name('asset/store')->middleware('auth', 'admin');
 
 Route::get('/homepage', 'BookingController@index')->name('homepage');
-Route::get('booking/{id}/create', 'BookingController@create')->name('booking.create');
-Route::post('booking/store', 'BookingController@store')->name('booking/store');
+Route::get('booking/{id}/create', 'BookingController@create')->name('booking.create')->middleware('auth');
+Route::post('booking/store', 'BookingController@store')->name('booking/store')->middleware('auth');
 
 Route::group(['prefix'=>'section'], function()
 	{
@@ -71,13 +75,13 @@ Route::group(['prefix'=>'author'], function()
 
 Route::group(['prefix'=>'book'], function()
 	{
-		Route::get('', ['uses'=>'BookController@index'])->name('book');
-		Route::get('create', ['uses'=>'BookController@create']);
-		Route::post('store', ['uses'=>'BookController@store'])->name('book/store');
-		Route::get('{id}/show', ['uses'=>'BookController@show'])->name('book.show');
-		Route::get('{id}/edit', ['uses'=>'BookController@edit'])->name('book.edit');
-		Route::put('{id}/update', ['uses'=>'BookController@update'])->name('book.update');
-		Route::delete('{id}/destroy', ['uses'=>'BookController@destroy'])->name('book.destroy');
+		Route::get('', ['uses'=>'BookController@index'])->name('book')->middleware('auth', 'admin');
+		Route::get('create', ['uses'=>'BookController@create'])->middleware('auth', 'admin');
+		Route::post('store', ['uses'=>'BookController@store'])->name('book/store')->middleware('auth', 'admin');
+		Route::get('{id}/show', ['uses'=>'BookController@show'])->name('book.show')->middleware('auth', 'admin');
+		Route::get('{id}/edit', ['uses'=>'BookController@edit'])->name('book.edit')->middleware('auth', 'admin');
+		Route::put('{id}/update', ['uses'=>'BookController@update'])->name('book.update')->middleware('auth', 'admin');
+		Route::delete('{id}/destroy', ['uses'=>'BookController@destroy'])->name('book.destroy')->middleware('auth', 'admin');
 	});
 
 

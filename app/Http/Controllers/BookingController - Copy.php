@@ -79,12 +79,14 @@ class BookingController extends Controller
 
         }while (($num<>0 ) or ($i == $table_size+1)); 
             
+        $randomString = str_random(25);
+
         $subscribe        = new Booking;
         //$subscribe->cod_booking = $request->cod_booking;
         $subscribe->start_date = $start_date;
         $subscribe->end_date = $end_date;
         $subscribe->user_id = 1;
-        $subscribe->cod_booking = 1;
+        $subscribe->cod_booking = $randomString;
         $subscribe->copy_id =  $copy_id;
         $subscribe->status = 'reservado';
         $subscribe->save();

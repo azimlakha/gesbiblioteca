@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class RedirectIfAuthenticated
 {
@@ -18,9 +19,14 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            $user_id = Auth::user()->id;
+            $profile = DB::table('profiles')->where('user_id', '=', $user_id)->first();
+            if ($profile->profile == 'Superuser') {
+                return redirect('/');
+            }else{
+                return redirect()->intended('/homepage');
+            }
         }
-
         return $next($request);
     }
 }
