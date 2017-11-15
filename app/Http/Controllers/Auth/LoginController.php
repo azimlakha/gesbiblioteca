@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -25,7 +28,17 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/homepage';
+    protected function authenticated(Request $request, $user)
+    {
+        $user_id = Auth::user()->id;
+        $profile = DB::table('profiles')->where('user_id', '=', $user_id)->first();
+        if (($profile->profile == 'Bibliotecario') OR ($profile->profile == 'Superuser'))
+        {// do your margic here
+            return redirect('book');
+        }
+
+    return redirect('/homepage');
+    }
 
     /**
      * Create a new controller instance.
