@@ -24,18 +24,18 @@ Route::get('signup', 'UserController@signup')->name('signup');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/admin', 'AdminController@index')->name('admin');
+//Route::get('/admin', 'AdminController@index')->name('admin');
 
 Route::get('errors/permition', 'ErrorsController@index')->name('errors/permition');
 
-Route::get('asset/create', 'LocationAssetsController@create')->middleware('auth', 'admin');
+Route::get('asset/create', 'LocationAssetsController@create')->middleware('auth', 'admin')->name('asset/create');
 Route::post('asset/store', 'LocationAssetsController@store')->name('asset/store')->middleware('auth', 'admin');
 
 Route::get('/homepage', 'BookingController@index')->name('homepage');
 Route::get('booking/{id}/create', 'BookingController@create')->name('booking.create')->middleware('auth');
 Route::post('booking/store', 'BookingController@store')->name('booking/store')->middleware('auth');
 
-Route::group(['prefix'=>'section'], function()
+Route::group(['prefix'=>'section', 'middleware' => ['auth','admin']], function()
 	{
 		Route::get('', ['uses'=>'SectionController@index'])->name('section');
 		Route::get('{id}/show', ['uses'=>'SectionController@show'])->name('section.show');
@@ -44,7 +44,7 @@ Route::group(['prefix'=>'section'], function()
 		Route::delete('{id}/destroy', ['uses'=>'SectionController@destroy'])->name('section.destroy');
 	});
 
-Route::group(['prefix'=>'bookcase'], function()
+Route::group(['prefix'=>'bookcase', 'middleware' => ['auth','admin']], function()
 	{
 		Route::get('', ['uses'=>'BookcaseController@index'])->name('bookcase');
 		Route::get('{id}/show', ['uses'=>'BookcaseController@show'])->name('bookcase.show');
@@ -53,7 +53,7 @@ Route::group(['prefix'=>'bookcase'], function()
 		Route::delete('{id}/destroy', ['uses'=>'BookcaseController@destroy'])->name('bookcase.destroy');
 	});
 
-Route::group(['prefix'=>'shelf'], function()
+Route::group(['prefix'=>'shelf', 'middleware' => ['auth','admin']], function()
 	{
 		Route::get('', ['uses'=>'ShelfController@index'])->name('shelf');
 		Route::get('{id}/show', ['uses'=>'ShelfController@show'])->name('shelf.show');
@@ -62,7 +62,7 @@ Route::group(['prefix'=>'shelf'], function()
 		Route::delete('{id}/destroy', ['uses'=>'ShelfController@destroy'])->name('shelf.destroy');
 	});
 
-Route::group(['prefix'=>'author'], function()
+Route::group(['prefix'=>'author', 'middleware' => ['auth','admin']], function()
 	{
 		Route::get('', ['uses'=>'AuthorController@index'])->name('author');
 		Route::get('create', ['uses'=>'AuthorController@create']);
@@ -73,19 +73,19 @@ Route::group(['prefix'=>'author'], function()
 		Route::delete('{id}/destroy', ['uses'=>'AuthorController@destroy'])->name('author.destroy');
 	});
 
-Route::group(['prefix'=>'book'], function()
+Route::group(['prefix' => 'book', 'middleware' => ['auth','admin']], function()
 	{
-		Route::get('', ['uses'=>'BookController@index'])->name('book')->middleware('auth', 'admin');
-		Route::get('create', ['uses'=>'BookController@create'])->middleware('auth', 'admin');
-		Route::post('store', ['uses'=>'BookController@store'])->name('book/store')->middleware('auth', 'admin');
-		Route::get('{id}/show', ['uses'=>'BookController@show'])->name('book.show')->middleware('auth', 'admin');
-		Route::get('{id}/edit', ['uses'=>'BookController@edit'])->name('book.edit')->middleware('auth', 'admin');
-		Route::put('{id}/update', ['uses'=>'BookController@update'])->name('book.update')->middleware('auth', 'admin');
-		Route::delete('{id}/destroy', ['uses'=>'BookController@destroy'])->name('book.destroy')->middleware('auth', 'admin');
+		Route::get('', ['uses'=>'BookController@index'])->name('book');
+		Route::get('create', ['uses'=>'BookController@create']);
+		Route::post('store', ['uses'=>'BookController@store'])->name('book/store');
+		Route::get('{id}/show', ['uses'=>'BookController@show'])->name('book.show');
+		Route::get('{id}/edit', ['uses'=>'BookController@edit'])->name('book.edit');
+		Route::put('{id}/update', ['uses'=>'BookController@update'])->name('book.update');
+		Route::delete('{id}/destroy', ['uses'=>'BookController@destroy'])->name('book.destroy');
 	});
 
 
-Route::group(['prefix'=>'location'], function()
+Route::group(['prefix'=>'location', 'middleware' => ['auth','admin']], function()
 	{
 		Route::get('', ['uses'=>'LocationController@index'])->name('location');
 		Route::get('create', ['uses'=>'LocationController@create']);
@@ -96,7 +96,7 @@ Route::group(['prefix'=>'location'], function()
 		Route::delete('{id}/destroy', ['uses'=>'LocationController@destroy'])->name('location.destroy');
 	});
 
-Route::group(['prefix'=>'copy'], function()
+Route::group(['prefix'=>'copy', 'middleware' => ['auth','admin']], function()
 	{
 		Route::get('', ['uses'=>'CopyController@index'])->name('copy');
 		Route::get('create', ['uses'=>'CopyController@create']);
@@ -107,7 +107,7 @@ Route::group(['prefix'=>'copy'], function()
 		Route::delete('{id}/destroy', ['uses'=>'CopyController@destroy'])->name('copy.destroy');
 	});
 
-Route::group(['prefix'=>'knowledge_area'], function()
+Route::group(['prefix'=>'knowledge_area', 'middleware' => ['auth','admin']], function()
 	{
 		Route::get('', ['uses'=>'Knowledge_areaController@index'])->name('knowledge_area');
 		Route::get('create', ['uses'=>'Knowledge_areaController@create']);
@@ -118,7 +118,7 @@ Route::group(['prefix'=>'knowledge_area'], function()
 		Route::delete('{id}/destroy', ['uses'=>'Knowledge_areaController@destroy'])->name('knowledge_area.destroy');
 	});
 
-Route::group(['prefix'=>'publisher'], function()
+Route::group(['prefix'=>'publisher', 'middleware' => ['auth','admin']], function()
 	{
 		Route::get('', ['uses'=>'PublisherController@index'])->name('publisher');
 		Route::get('create', ['uses'=>'PublisherController@create']);
@@ -129,7 +129,7 @@ Route::group(['prefix'=>'publisher'], function()
 		Route::delete('{id}/destroy', ['uses'=>'PublisherController@destroy'])->name('publisher.destroy');
 	});
 
-Route::group(['prefix'=>'subject'], function()
+Route::group(['prefix'=>'subject', 'middleware' => ['auth','admin']], function()
 	{
 		Route::get('', ['uses'=>'SubjectController@index'])->name('subject');
 		Route::get('create', ['uses'=>'SubjectController@create']);

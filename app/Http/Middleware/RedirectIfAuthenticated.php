@@ -21,7 +21,7 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             $user_id = Auth::user()->id;
             $profile = DB::table('profiles')->where('user_id', '=', $user_id)->first();
-            if ($profile->profile == 'Superuser') {
+            if (($profile->profile == 'Superuser') OR ($profile->profile == 'Bibliotecario')){
                 return redirect('/');
             }else{
                 return redirect()->intended('/homepage');

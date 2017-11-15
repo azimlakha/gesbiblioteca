@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@extends('layouts.admin')
+
 @section('content') 
 <div class="container">
     <div class="row col-md-10 col-md-offset-1custyle">

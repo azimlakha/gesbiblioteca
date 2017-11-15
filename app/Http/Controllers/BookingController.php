@@ -15,8 +15,29 @@ class BookingController extends Controller
     public function index()
     {
        $books = Book::all();
-       return view('homepage.index', compact('books'));
+       foreach ($books as $book){
+          $copy=DB::table('copies')->where ('book_id','=', $book->id)
+                                   ->where('conservation','=','Bom')
+                                   ->get();
+          If ($copy->isEmpty()){
+              $copies[$book->id]=0;
+          }
+          else{
+              $copies[$book->id]=1;
+          }
+       } 
+
+       return view('homepage.index', compact('books','copies'));
     }
+    public function ExistCopy($id)
+    {
+          $copy=DB::table('copies')->where ('book_id','=', $id)
+                                   ->where('conservation','=','Bom')
+                                   ->get();
+          return $copy;
+    }
+
+
     public function create($id)
     {
            $book = Book::find($id);
