@@ -1,7 +1,6 @@
 @extends('layouts.app')
  
 @section('content')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -30,11 +29,11 @@
 
 
                         <div class="form-group{{ $errors->has('thumbnail') ? ' has-error' : '' }}">
-                            <label for="thumbnail" >Upload Image</label>
+                            <label for="thumbnail" class="col-md-4 control-label">Capa</label>
                             <div class="col-md-6">
                             <div class="input-group">
                                     <span class="btn btn-default btn-file">
-                                        Browse… <input type="file" name="thumbnail" required>
+                                        <input type="file" name="thumbnail" required>
                                     </span>
                             </div>
                             </div>
@@ -69,7 +68,6 @@
                             </div>
                         </div>
 
-<
                         <div class="form-group{{ $errors->has('pages') ? ' has-error' : '' }}">
                             <label for="pages" class="col-md-4 control-label">Páginas</label>
 
@@ -124,7 +122,7 @@
                             <label for="author" class="col-md-4 control-label">Escolhe pelo menos um Autor</label>
 
                             <div class="col-md-6">
-                                <select class="form-control input-lg js-multiple" multiple="multiple" name="author[]" id="js-multiple" required>
+                                <select class="form-control input-lg" multiple="multiple" name="author[]" id="prettify" required>
                                 @foreach($authors as $author)
                                     <option value="{{$author->id}}">{{$author->name}}</option>
                                 @endforeach

@@ -18,7 +18,7 @@
 
                             <div class="col-md-6">
                                 <div class="input-group date">
-                                <input size="16" type="datetime-local" value="" class="date form-control" min="2017-11-05" max="2018-06-30" name="start_date" required>
+                                <input size="16" type="text" value="" class="date form-control" min="2017-11-05" max="2018-06-30" name="start_date" required>
                                 <span class="add-on"><i class="icon-remove"></i></span>
                                 <span class="add-on"><i class="icon-calendar"></i></span>
                             </div>
@@ -31,7 +31,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}">
+ <!--                       <div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}">
                             <label for="time" class="col-md-4 control-label">Ate:</label>
 
                             <div class="col-md-6">
@@ -48,38 +48,28 @@
                             @endif
                             </div>
                         </div>
-
-                       <!-- <div class="form-group{{ $errors->has('duration') ? ' has-error' : '' }}">
-=======
+-->
                         <div class="form-group{{ $errors->has('duration') ? ' has-error' : '' }}">
->>>>>>> 131de46d9b7af22702e825226a4e56185fdc0fcc
                             <label for="duration" class="col-md-4 control-label">Duração</label>
-
                             <div class="col-md-6">
                                 <select class="form-control" name="duration" required autofocus>
                                     <option value="">--Seleccione a duração--</option>
-                                    <option value="15">15 Minutos</option>
-                                    <option value="30">30 Minutos</option>
-                                    <option value="45">45 Minutos</option>
-                                    <option value="60">01 Hora</option>
-                                    <option value="15">01h15 Minutos</option>
-                                    <option value="30">01h30 Minutos</option>
-                                    <option value="45">01h45 Minutos</option>
-                                    <option value="60">02 Horas </option>
-                                    <option value="15">02h15 Minutos</option>
-                                    <option value="30">02h30 Minutos</option>
-                                    <option value="45">02h45 Minutos</option>
-                                    <option value="60">03 Horas </option>
+                                    <option value="900">15 Minutos</option>
+                                    <option value="1800">30 Minutos</option>
+                                    <option value="2700">45 Minutos</option>
+                                    <option value="3600">01 Hora</option>
+                                    <option value="4500">01h15 Minutos</option>
+                                    <option value="5400">01h30 Minutos</option>
+                                    <option value="6300">01h45 Minutos</option>
+                                    <option value="7200">02 Horas </option>
+                                    <option value="8100">02h15 Minutos</option>
+                                    <option value="9000">02h30 Minutos</option>
+                                    <option value="9900">02h45 Minutos</option>
+                                    <option value="10800">03 Horas </option>
                                 </select>
                             </div>
-                        </div>-->
-
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                <input id="id" type="hidden" class="form-control" name="book_id" value="{{$book->id}}">
-                            </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="title" class="col-md-4 control-label">Título</label>
 

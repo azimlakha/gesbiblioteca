@@ -5,6 +5,8 @@ use App\Book;
 use Validator;
 use Illuminate\Support\Facades\DB;
 use App\Booking;
+use App\Copy;
+use Carbon\Carbon;
 class BookingController extends Controller
 {
    /**
@@ -34,30 +36,55 @@ class BookingController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
+
+
+        $start_date = Carbon::parse(date_format(date_create($request->start_date),'Y-m-d H:i:s'));
+        $end_date = Carbon::parse(date_format(date_create($request->start_date),'Y-m-d H:i:s'));
+        $end_date->addSeconds($request->duration);
+
         $i=0;
+        $table_size = Copy::count();
         do{
             $i++;
-           $copy=DB::table('copies')->where ('id','=', $i)
+            $copy=DB::table('copies')->where ('id','=', $i)
                                     ->where ('book_id','=', $request->book_id)
                                     ->where('conservation','=','Bom')
                                     ->get()->first();
-           //if (!empty($copy)){                         
-           $num=DB::table('Bookings')->where(function ($query){
-                                      $query->where('copy_id', '=',4)->where('start_date','<=',$request->start_date)->where('end_date','>=',$request->start_date);
-                                    })->orWhere(function ($query){
-                                      $query->where('start_date', '>',$request->start_date)
-                                      ->where('start_date','<',$request->end_date);
-                                    })->count();
-           if($num==0){
-            $copy_id= $copy->id;
-           } //}   
-        }while ($num<>0); 
+
+            $num=DB::table('Bookings')->where('copy_id', '=',$copy->id)
+                                      ->where('status','=','reservado')->count();
+
+            if($num>0){ 
+              $j=0; 
+              $btable_size = Booking::count();
+              $flag=0;                        
+              do{
+                $j++;
+                $booking=DB::table('Bookings')->where ('id','=', $j)
+                                              ->where('copy_id', '=',$copy->id)
+                                              ->where('status','=','reservado')->get()->first();
+                if (isset($booking)){
+                  if(($start_date < $booking->start_date & $end_date <= $booking->start_date) or $start_date >= $booking->end_date){
+                    $copy_id= $copy->id;
+                  }
+                  else{
+                    $flag=1;  
+                  }   
+                } 
+              } while (($flag==0) or ($j == $btable_size+1));         
+            }
+            else {
+              $copy_id= $copy->id;
+            }
+
+        }while (($num<>0 ) or ($i == $table_size+1)); 
             
         $subscribe        = new Booking;
         //$subscribe->cod_booking = $request->cod_booking;
-        $subscribe->start_date = $request->start_date;
-        $subscribe->end_date = $request->end_date;
+        $subscribe->start_date = $start_date;
+        $subscribe->end_date = $end_date;
         $subscribe->user_id = 1;
+        $subscribe->cod_booking = 1;
         $subscribe->copy_id =  $copy_id;
         $subscribe->status = 'reservado';
         $subscribe->save();

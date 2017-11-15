@@ -29,7 +29,7 @@
                             <label for="country" class="col-md-4 control-label">País</label>
 
                             <div class="col-md-6">
-                                <select class="form-control" name="country" required autofocus>
+                                <select class="form-control" name="country" id="prettify" required autofocus>
                                 @foreach($countries as $country)
                                     <option value="{{$country->name}}">{{$country->name}}</option>
                                 @endforeach
