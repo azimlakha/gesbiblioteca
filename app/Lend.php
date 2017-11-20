@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Lend extends Model
 {
     protected $fillable = [
-        'cod_lend', 'start_date', 'end_date', 'users_id', 'copy_id', 'notes'
+        'cod_lend', 'start_date', 'end_date', 'users_id', 'copy_id', 'return_date'
     ];
 
     public function copy(){

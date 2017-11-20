@@ -32,12 +32,12 @@ class LoginController extends Controller
     {
         $user_id = Auth::user()->id;
         $profile = DB::table('profiles')->where('user_id', '=', $user_id)->first();
-        if (($profile->profile == 'Bibliotecario') OR ($profile->profile == 'Superuser'))
+        if (($profile->profile == 'Bibliotecario') OR ($profile->profile == 'Administrador'))
         {// do your margic here
             return redirect('book');
         }
 
-    return redirect('/homepage');
+    return redirect()->intended('/homepage');
     }
 
     /**

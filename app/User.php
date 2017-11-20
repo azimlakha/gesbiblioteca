@@ -24,7 +24,11 @@ class User extends Authenticatable
         return $this->hasOne('App\Profile');
     }
 
-    public function bookings(){
+    public function books(){
+        return $this->belongsToMany('App\Book', 'wishlists');
+    }
+
+        public function bookings(){
         return $this->hasMany('App\Booking');
     }
 

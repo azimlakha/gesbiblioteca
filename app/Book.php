@@ -27,6 +27,10 @@ class Book extends Model
         return $this->belongsToMany('App\Author', 'book_has_authors'); // link between author and book
     }
 
+    public function users(){
+        return $this->belongsToMany('App\User', 'wishlists');
+    }
+
     public function copies(){
         return $this->hasMany('App\Copy'); //// link between copies and book
     }

@@ -19,7 +19,7 @@ class CheckProfile
     {
         $user_id = Auth::user()->id;
         $profile = DB::table('profiles')->where('user_id', '=', $user_id)->first();
-        if (($profile->profile != 'Bibliotecario') & ($profile->profile != 'Superuser')) {
+        if (($profile->profile != 'Bibliotecario') & ($profile->profile != 'Administrador')) {
             return redirect('errors/permition');
         }
 

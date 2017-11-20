@@ -6,69 +6,12 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Efectuar Reserva
+                <div class="panel-heading">Guardar Livro
                 </div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('booking/store') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('wishlist/store') }}">
                         {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}">
-                            <label for="date" class="col-md-4 control-label">Data Hora da Reserva</label>
-
-                            <div class="col-md-6">
-                                <div class="input-group date">
-                                <input size="16" type="text" value="" class="date form-control" min="2017-11-05" max="2018-06-30" name="start_date" required>
-                                <span class="add-on"><i class="icon-remove"></i></span>
-                                <span class="add-on"><i class="icon-calendar"></i></span>
-                            </div>
-
-                            @if ($errors->has('start_date'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('start_date') }}</strong>
-                                    </span>
-                            @endif
-                            </div>
-                        </div>
-
- <!--                       <div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}">
-                            <label for="time" class="col-md-4 control-label">Ate:</label>
-
-                            <div class="col-md-6">
-                                <div class="input-group date">
-                                <input size="16" type="datetime-local" value="" class="time form-control" name="end_date" required>
-                                <span class="add-on"><i class="icon-remove"></i></span>
-                                <span class="add-on"><i class="icon-calendar"></i></span>
-                            </div>
-
-                            @if ($errors->has('end_date'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('end_date') }}</strong>
-                                    </span>
-                            @endif
-                            </div>
-                        </div>
--->
-                        <div class="form-group{{ $errors->has('duration') ? ' has-error' : '' }}">
-                            <label for="duration" class="col-md-4 control-label">Duração</label>
-                            <div class="col-md-6">
-                                <select class="form-control" name="duration" required autofocus>
-                                    <option value="">--Seleccione a duração--</option>
-                                    <option value="900">15 Minutos</option>
-                                    <option value="1800">30 Minutos</option>
-                                    <option value="2700">45 Minutos</option>
-                                    <option value="3600">01 Hora</option>
-                                    <option value="4500">01h15 Minutos</option>
-                                    <option value="5400">01h30 Minutos</option>
-                                    <option value="6300">01h45 Minutos</option>
-                                    <option value="7200">02 Horas </option>
-                                    <option value="8100">02h15 Minutos</option>
-                                    <option value="9000">02h30 Minutos</option>
-                                    <option value="9900">02h45 Minutos</option>
-                                    <option value="10800">03 Horas </option>
-                                </select>
-                            </div>
-                        </div>
 
                         <div class="form-group">
                             <label for="title" class="col-md-4 control-label">Título</label>
@@ -136,7 +79,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Registar
+                                    Guardar
                                 </button>
                                 <a class="btn btn-primary" href="{{ route('homepage') }}">
                                    Cancel

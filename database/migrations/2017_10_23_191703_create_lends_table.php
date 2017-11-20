@@ -15,6 +15,16 @@ class CreateLendsTable extends Migration
     {
         Schema::create('lends', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('cod_lend');
+            $table->datetime('start_date');
+            $table->datetime('end_date');
+            $table->datetime('return_date');
+            $table->integer('copy_id')->unsigned();
+            $table->foreign('copy_id')->references('id')->on('copies');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('status');
+            $table->unique(['start_date', 'copy_id', 'user_id']);
             $table->timestamps();
         });
     }

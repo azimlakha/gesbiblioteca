@@ -1,10 +1,12 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Book;
 use Validator;
 use Illuminate\Support\Facades\DB;
 use App\Booking;
+use Carbon\Carbon;
 class BookingController extends Controller
 {
    /**
@@ -25,10 +27,19 @@ class BookingController extends Controller
           else{
               $copies[$book->id]=1;
           }
-       } 
 
-       return view('homepage.index', compact('books','copies'));
+          foreach($book->users as $user){
+              If ($user->id = Auth::user()->id){
+                $livro[$book->id]=1;
+              }
+              else{
+                $livro[$book->id]=0;
+              } 
+          }
+       } 
+       return view('homepage.index', compact('books','copies','livro'));
     }
+    
     public function ExistCopy($id)
     {
           $copy=DB::table('copies')->where ('book_id','=', $id)
@@ -55,6 +66,12 @@ class BookingController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
+
+        $user_id = Auth::user()->id;
+        $start_date = Carbon::parse(date_format(date_create($request->start_date),'Y-m-d H:i:s'));
+        $end_date = Carbon::parse(date_format(date_create($request->start_date),'Y-m-d H:i:s'));
+        $end_date->addSeconds($request->duration);
+        /*
         $i=0;
         do{
             $i++;
@@ -72,18 +89,25 @@ class BookingController extends Controller
            if($num==0){
             $copy_id= $copy->id;
            } //}   
-        }while ($num<>0); 
+        }while ($num<>0); */
+
+                            $copy=DB::table('copies')->where ('book_id','=', $request->book_id)
+                                    ->where('conservation','=','Bom')
+                                    ->get()->first();
+                                    $copy_id= $copy->id;
+            
+        $randomString = str_random(8);
             
         $subscribe        = new Booking;
-        //$subscribe->cod_booking = $request->cod_booking;
-        $subscribe->start_date = $request->start_date;
-        $subscribe->end_date = $request->end_date;
-        $subscribe->user_id = 1;
+        $subscribe->cod_booking = $randomString;
+        $subscribe->start_date = $start_date;
+        $subscribe->end_date = $end_date;
+        $subscribe->user_id = $user_id;
         $subscribe->copy_id =  $copy_id;
         $subscribe->status = 'reservado';
         $subscribe->save();
          //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
          
-         return redirect()->route('homepage')->with('message','Rsereva efectuada com sucesso!');
+         return redirect()->route('homepage')->with('message','Reserva efectuada com sucesso! O seu código de reserva é: '.$randomString);
     }
 }

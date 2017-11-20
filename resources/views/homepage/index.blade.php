@@ -30,9 +30,10 @@
                <td class="text-center">
 
 
-               @if($copies[$book->id]==1)<a class='btn btn-info btn-xs' href="{{route('booking.create', $book->id)}}"><span class="glyphicon glyphicon-edit"></span> Reservar</a>
+               @if($copies[$book->id]==1)<a class='btn btn-info btn-xs' href="{{route('booking/create', $book->id)}}"><span class="glyphicon glyphicon-edit"></span> Reservar</a>
                @else<span>Indisponível</span>
-                @endif</td>
+                @endif
+<a class='btn btn-heart btn-xs' href="{{route('wishlist/create', $book->id)}}"><span class="glyphicon glyphicon-heart"></span> Guardar</a></td>
            </tr>
            @endforeach
     </table>
