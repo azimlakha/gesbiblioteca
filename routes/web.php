@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
+
 
 Auth::routes();
 
@@ -22,7 +21,7 @@ Route::get('signup_su', 'UserController@signup_su')->name('signup_su');
 Route::post('store_su', 'UserController@store')->name('store_su');
 Route::get('signup', 'UserController@signup')->name('signup');
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/admin', 'AdminController@index')->name('admin');
 
@@ -31,12 +30,30 @@ Route::get('errors/permition', 'ErrorsController@index')->name('errors/permition
 Route::get('asset/create', 'LocationAssetsController@create')->middleware('auth', 'admin')->name('asset/create');
 Route::post('asset/store', 'LocationAssetsController@store')->name('asset/store')->middleware('auth', 'admin');
 
-Route::get('/homepage', 'BookingController@index')->name('homepage');
-Route::get('wishlist/{id}/create', 'WishlistController@create')->name('wishlist/create')->middleware('auth');
-Route::post('wishlist/store', 'WishlistController@store')->name('wishlist/store')->middleware('auth');
+Route::get('/homepage', 'HomeController@index')->name('homepage');
+Route::post('/home/search', 'HomeController@search')->name('home/search');
 
-Route::get('booking/{id}/create', 'BookingController@create')->name('booking/create')->middleware('auth');
-Route::post('booking/store', 'BookingController@store')->name('booking/store')->middleware('auth');
+Route::group(['prefix'=>'booking', 'middleware' => ['auth']], function()
+	{
+		Route::get('', ['uses'=>'BookingController@index'])->name('booking');
+		Route::get('{id}/create', ['uses'=>'BookingController@create'])->name('booking/create');
+		Route::post('store', ['uses'=>'BookingController@store'])->name('booking/store');
+		Route::get('{id}/show', ['uses'=>'BookingController@show'])->name('booking.show');
+		Route::get('{id}/edit', ['uses'=>'BookingController@edit'])->name('booking.edit');
+		Route::put('{id}/update', ['uses'=>'BookingController@update'])->name('booking.update');
+		Route::delete('{id}/destroy', ['uses'=>'BookingController@destroy'])->name('booking.destroy');
+	});
+
+Route::group(['prefix'=>'wishlist', 'middleware' => ['auth']], function()
+	{
+		Route::get('', ['uses'=>'WishlistController@index'])->name('wishlist');
+		Route::get('{id}/create', ['uses'=>'WishlistController@create'])->name('wishlist/create');
+		Route::post('store', ['uses'=>'WishlistController@store'])->name('wishlist/store');
+		Route::get('{id}/show', ['uses'=>'WishlistController@show'])->name('wishlist.show');
+		Route::get('{id}/edit', ['uses'=>'WishlistController@edit'])->name('wishlist.edit');
+		Route::put('{id}/update', ['uses'=>'WishlistController@update'])->name('wishlist.update');
+		Route::delete('{id}/destroy', ['uses'=>'WishlistController@destroy'])->name('wishlist.destroy');
+	});
 
 Route::group(['prefix'=>'section', 'middleware' => ['auth','admin']], function()
 	{

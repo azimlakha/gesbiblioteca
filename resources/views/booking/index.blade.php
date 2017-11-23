@@ -1,8 +1,9 @@
 @extends('layouts.app')
+@extends('layouts.user')
 
 @section('content') 
 <div class="container">
-    <div class="row col-md-10 col-md-offset-1 custyle">
+    <div class="row col-md-8 col-md-offset-2 custyle">
 
     @if(Session::has('message'))
       <div class='alert alert-success'>{{ Session::get('message') }}</div>
@@ -10,39 +11,23 @@
 
     <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
     <thead>
-    <a href="book/create" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar novo Livro</a>
         <tr>
-            <th>ID</th>
-            <th>ISBN</th>
-            <th>Título</th>
-            <th>Editora</th>
-            <th>Edição</th>
-            <th>Área de Conhecimento</th>
-            <th>Disciplina</th>
-            <th>Autor(es)</th>
+            <th>Código da Rserva</th>
+            <th>Livro</th>
+            <th>Data/Hora</th>
             <th class="text-center">Acção</th>
         </tr>
     </thead>
-            @foreach($books as $book)
+           @foreach($user->bookings as $booking)
            <tr>
-               <td>{{$book->id}}</td>
-               <td>{{$book->ISBN}}</td>
-               <td>{{$book->title}}</td>
-               <td>{{$book->publisher->name}}</td>
-               <td>{{$book->edition}}</td>
-               <td>{{$book->knowledge_area->name}}</td>
-               <td>{{$book->subject->name}}</td>
-               
-               <td>@foreach($book->authors as $author)<p>{{$author->name}}</p>@endforeach</td>
-               
+               <td><p>{{$booking->cod_booking}}</p></td>
+               <td><p>{{$booking->copy->book->title}}</p></td>
+               <td><p>{{$booking->created_at}}</p></td>
                <td class="text-center">
-
-
-               <a class='btn btn-info btn-xs' href="{{route('book.edit', $book->id)}}"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+               <a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Editar</a> <a class='btn btn-danger btn-xs' href="#"><span class="glyphicon glyphicon-remove"></span> Cancelar</a></td>
            </tr>
-           @endforeach
+            @endforeach 
     </table>
     </div>
 </div>
-
 @endsection

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Book;
+use App\User;
 
 class WishlistController extends Controller
 {
@@ -18,6 +19,8 @@ class WishlistController extends Controller
      */
     public function index()
     {
+           $user = User::find(Auth::user()->id);
+           return view('wishlist.index', compact('user'));
     }
     /**
      * Show the form for creating a new resource.
@@ -47,12 +50,16 @@ class WishlistController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }*/
-        $book = Book::find($request->book_id);
-        $book->users()->attach(Auth::user()->id);
+        try{
+            $book = Book::find($request->book_id);
+            $book->users()->attach(Auth::user()->id);
 
-         //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
+        }
+        catch(\Exception $e){
+            return redirect()->route('homepage')->with('message','Este livro já está registado na tua Lista de Preferências!');
+        }
          
-         return redirect()->route('homepage')->with('message','Livro guardado com sucesso!');
+        return redirect()->route('homepage')->with('message','Livro guardado com sucesso!');
     }
     /**
      * Display the specified resource.

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -34,6 +35,14 @@ class User extends Authenticatable
 
     public function lends(){
         return $this->hasMany('App\Lend');
+    }
+
+    static function isUser(){
+        $user = User::find(Auth::user()->id);
+        if(($user->profile->profile == 'Estudante') || ($user->profile->profile == 'Professor')) {
+                    return true;
+                }
+                return false;
     }
 
     /**

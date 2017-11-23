@@ -22,7 +22,7 @@ class RedirectIfAuthenticated
             $user_id = Auth::user()->id;
             $profile = DB::table('profiles')->where('user_id', '=', $user_id)->first();
             if (($profile->profile == 'Administrador') OR ($profile->profile == 'Bibliotecario')){
-                return redirect('/');
+                return redirect('book');
             }else{
                 return redirect()->intended('/homepage');
             }
