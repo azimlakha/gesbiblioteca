@@ -16,14 +16,19 @@ Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
-Route::get('user', 'UserController@index')->name('user');
-Route::get('signup_su', 'UserController@signup_su')->name('signup_su');
-Route::post('store_su', 'UserController@store')->name('store_su');
-Route::get('signup', 'UserController@signup')->name('signup');
+Route::get('user', 'UserController@index')->name('user')->middleware('auth', 'admin');
+Route::get('signup_su', 'UserController@signup_su')->name('signup_su')->middleware('auth', 'admin');
+Route::post('store_su', 'UserController@store')->name('store_su')->middleware('auth', 'admin');
+Route::get('signup', 'UserController@signup')->name('signup')->middleware('auth', 'admin');
+Route::get('{id}/edituser', 'UserController@edituser')->name('edituser')->middleware('auth', 'admin');
+Route::put('{id}/user', 'UserController@updateuser')->name('user.update')->middleware('auth', 'admin');
+Route::get('editprofile', 'UserController@edit')->name('editprofile')->middleware('auth');
+Route::put('{id}/profile', 'UserController@update')->name('user.profile')->middleware('auth');
 
-//Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/admin', 'AdminController@index')->name('admin');
+Route::get('adminbookings', 'AdminController@bookings')->middleware('auth', 'admin')->name('adminbookings');
+Route::post('adminbookings_search', 'BookingController@search')->middleware('auth', 'admin')->name('adminbookings_search');
 
 Route::get('errors/permition', 'ErrorsController@index')->name('errors/permition');
 
@@ -118,8 +123,8 @@ Route::group(['prefix'=>'location', 'middleware' => ['auth','admin']], function(
 
 Route::group(['prefix'=>'copy', 'middleware' => ['auth','admin']], function()
 	{
-		Route::get('', ['uses'=>'CopyController@index'])->name('copy');
-		Route::get('create', ['uses'=>'CopyController@create']);
+		Route::get('{id}', ['uses'=>'CopyController@index'])->name('copy');
+		Route::get('{id}/create', ['uses'=>'CopyController@create'])->name('copy.create');
 		Route::post('store', ['uses'=>'CopyController@store'])->name('copy/store');
 		Route::get('{id}/show', ['uses'=>'CopyController@show'])->name('copy.show');
 		Route::get('{id}/edit', ['uses'=>'CopyController@edit'])->name('copy.edit');

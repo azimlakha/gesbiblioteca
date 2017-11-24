@@ -1,13 +1,10 @@
 @section('admin_menu')
-<li><a href="{{ route('homepage') }}">Reservas</a></li>
+<li><a href="{{ route('adminbookings') }}">Reservas</a></li>
                             <li><a href="{{ route('register') }}">Empréstimos</a></li>
                             <li><a href="{{ route('book') }}">Livros</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Elementos</a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('copy') }}">Cópias</a>
-                                    </li>
                                     <li>
                                         <a href="{{ route('author') }}">Autor</a>
                                     </li>
@@ -28,5 +25,15 @@
                                     </li>
                                 </ul>
                             </li>
-
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Utilizadores</a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{{ route('signup_su') }}">Criar</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('user') }}">Editar</a>
+                                    </li>
+                                </ul>
+                            </li>
 @endsection

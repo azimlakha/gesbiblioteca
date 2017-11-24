@@ -30,6 +30,15 @@ class BookingController extends Controller
           return $copy;
     }
 */
+    public function search(Request $request)
+    {
+          $bookings = Booking::where('start_date','like', '%'.$request->date.'%')
+                        ->whereHas('user', function ($query) use ($request){
+                  $query->where('name', 'like', '%'.$request->name.'%');
+          })->get();
+
+           return view('admin.bookings', compact('bookings'));
+    }
     public function create($id)
     {
            $book = Book::find($id);

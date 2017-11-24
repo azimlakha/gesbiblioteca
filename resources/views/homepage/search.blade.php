@@ -3,16 +3,16 @@
 
 @section('content') 
 <div class="container">
-    <div class="row col-md-10 col-md-offset-1 custyle">
+    <div class="row col-md-11 col-md-offset-1 custyle">
 
     <form class="form-horizontal" method="POST" action="{{ route('home/search') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                            <label for="title" class="col-md-4 control-label">Título</label>
+                            <label for="title" class="col-md-1 control-label">Título</label>
 
-                            <div class="col-md-6">
-                                <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}" required autofocus>
+                            <div class="col-md-4">
+                                <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}" autofocus>
 
                                 @if ($errors->has('title'))
                                     <span class="help-block">
@@ -20,12 +20,12 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
+
 
                         <div class="form-group{{ $errors->has('author') ? ' has-error' : '' }}">
-                            <label for="author" class="col-md-4 control-label">Autor</label>
+                            <label for="author" class="col-md-1 control-label">Autor</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <input id="author" type="text" class="form-control" name="author" value="{{ old('author') }}" autofocus>
 
                                 @if ($errors->has('author'))
@@ -34,14 +34,15 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
+                            <div class="col-md-1">
                                 <button type="submit" class="btn btn-primary">
                                     Pesquisar
                                 </button>
                             </div>
                         </div>
+                        </div>
+                      </div>
     </form>
                         @if(Session::has('message'))
       <div class='alert alert-success'>{{ Session::get('message') }}</div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Copy;
@@ -17,9 +18,9 @@ class CopyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $copies = Copy::all();
+        $copies = Copy::where('book_id','=', $id)->get();
 
         return view('copy.index', compact('copies'));
     }
@@ -28,11 +29,11 @@ class CopyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        $books = Book::all();
+        $book = Book::find($id);
         $locations = Location::all();
-        return view('copy.register', compact('books', 'locations'));
+        return view('copy.register', compact('book', 'locations'));
     }
 
     /**
@@ -43,18 +44,7 @@ class CopyController extends Controller
      */
     public function store(Request $request)
     {
-        /** $validator = Validator::make($request->all(), [
-        'title' => 'required|string|255',
-        'edition' => 'required|string|255',
-        'ISBN' => 'required|integer|unique:copies',
-        ]);
 
-        if ($validator->fails()) {
-        return redirect('copy/create')
-        ->withErrors($validator)
-        ->withInput();
-        }
-         */
         for ($i = 1; $i <= $request->copy_num; $i++){
             $subscribe        = new Copy;
             $subscribe->conservation = 'Bom';
@@ -66,7 +56,7 @@ class CopyController extends Controller
 
         //return Redirect::to('/user')->with('message','User adicionado com sucesso!');
 
-        return redirect()->route('copy')->with('message','Exemplar(es) adicionado(s) com sucesso!');
+        return redirect()->route('copy', $request->book_id)->with('message','Exemplar(es) adicionado(s) com sucesso!');
     }
     /**
      * Display the specified resource.

@@ -82,6 +82,8 @@ class RegisterController extends Controller
         $profile->profile = 'Estudante';
         $profile->save();
 
+        $profile_id=$profile->id;
+
         return $user;
     }
 }

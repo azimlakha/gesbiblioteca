@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row col-md-6 col-md-offset-2 custyle">
+    <div class="row col-md-10 col-md-offset-1 custyle">
 
     @if(Session::has('message'))
       <div class='alert alert-success'>{{ Session::get('message') }}</div>
@@ -12,7 +12,9 @@
 
     <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
     <thead>
-    <a href="copy/create" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar novo Exemplar</a>
+    @foreach($copies as $copy)
+    @endforeach  
+    <a href="{{route('copy.create', $copy->book->id)}}" class="btn btn-primary btn-xs pull-right"><b>+</b> Adicionar novo Exemplar</a>
         <tr>
             <th>ID</th>
             <th>Título do Livro</th>

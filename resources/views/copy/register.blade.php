@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <div class="container">
@@ -13,16 +14,18 @@
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('book_id') ? ' has-error' : '' }}">
-                                <label for="book_id" class="col-md-4 control-label">Livro</label>
-
                                 <div class="col-md-6">
-                                    <select class="form-control" name="book_id" required autofocus>
-                                        @foreach($books as $book)
-                                            <option value="{{$book->id}}">{{$book->ISBN}}</option>
-                                        @endforeach
-                                    </select>
+                                    <input id="book_id" type="hidden" class="form-control" name="book_id" value="{{ $book->id }}">
                                 </div>
                             </div>
+
+                            <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                            <label for="title" class="col-md-4 control-label">Título</label>
+
+                            <div class="col-md-6">
+                                <input id="title" type="text" class="form-control" name="title" value="{{ $book->title }}" readonly>
+                            </div>
+                        </div>
 
                             <div class="form-group{{ $errors->has('location_id') ? ' has-error' : '' }}">
                                 <label for="location_id" class="col-md-4 control-label">Localização</label>
@@ -48,21 +51,6 @@
                                 </div>
                             </div>
 
-
- <!--                           <div class="form-group{{ $errors->has('conservation') ? ' has-error' : '' }}">
-                            <label for="conservation" class="col-md-4 control-label">Conservação</label>
-
-                            <div class="col-md-6">
-                                <select class="form-control" name="conservation" required autofocus>
-                                    <option value="">--Seleccione o Estado de Conservação--</option>
-                                    <option value="bom">Bom</option>
-                                    <option value="restauracao">Em Restauração</option>
-                                    <option value="danificado">Danificado</option>
-                                    <option value="extraviado">Extraviado</option>
-                                </select>
-                            </div>
-                        </div>
--->
                         <div class="form-group{{ $errors->has('notes') ? ' has-error' : '' }}">
                             <label for="notes" class="col-md-4 control-label">Notas</label>
 
@@ -83,7 +71,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         Registar
                                     </button>
-                                     <a class="btn btn-primary" href="{{ route('copy') }}">
+                                     <a class="btn btn-primary" href="{{route('book')}}">
                                    Cancel
                                 </a>
                                 </div>

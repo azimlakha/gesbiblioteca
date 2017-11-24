@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Book;
@@ -23,7 +24,13 @@ class BookController extends Controller
     {
        $books = Book::all();
 
-       return view('book.index', compact('books'));
+       foreach($books as $book){
+        $copies[$book->id]=DB::table('copies')->where ('book_id','=', $book->id)
+                                   ->where('conservation','=','Bom')
+                                   ->count();
+       }
+
+       return view('book.index', compact('books','copies'));
     }
     /**
      * Show the form for creating a new resource.

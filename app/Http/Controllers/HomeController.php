@@ -42,22 +42,10 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
-
           $books = Book::where('title','like', '%'.$request->title.'%')
                         ->whereHas('authors', function ($query) use ($request){
                   $query->where('name', 'like', '%'.$request->author.'%');
           })->get();
-
-   /*       $books = DB::table('books')->where('title','like', '%'.$request->title.'%')
-                                    ->get();
-          $i=0;
-          foreach($books as $book){
-            foreach($authors as $author){
-              $i++;
-              if ($book->authors->id == $author)
-                $results[$i]=$book;    
-            }
-          }*/
 
            return view('homepage.search', compact('books'));
     }

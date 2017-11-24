@@ -4,7 +4,7 @@
 
 @section('content') 
 <div class="container">
-    <div class="row col-md-10 col-md-offset-1 custyle">
+    <div class="row col-md-12 custyle">
 
     @if(Session::has('message'))
       <div class='alert alert-success'>{{ Session::get('message') }}</div>
@@ -22,6 +22,7 @@
             <th>Área de Conhecimento</th>
             <th>Disciplina</th>
             <th>Autor(es)</th>
+            <th>Cópias Disponíveis</th>
             <th class="text-center">Acção</th>
         </tr>
     </thead>
@@ -34,12 +35,11 @@
                <td>{{$book->edition}}</td>
                <td>{{$book->knowledge_area->name}}</td>
                <td>{{$book->subject->name}}</td>
-               
                <td>@foreach($book->authors as $author)<p>{{$author->name}}</p>@endforeach</td>
-               
+               <td align="center">{{$copies[$book->id]}} @if ($copies[$book->id]>0)<a class='btn btn-info btn-xs' href="{{route('copy', $book->id)}}"><span class="glyphicon glyphicon-search"></span> Ver todas</a>
+                @else <a href="{{route('copy.create', $book->id)}}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-plus"></span> Exemplar</a>
+              @endif</td>
                <td class="text-center">
-
-
                <a class='btn btn-info btn-xs' href="{{route('book.edit', $book->id)}}"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
            </tr>
            @endforeach
